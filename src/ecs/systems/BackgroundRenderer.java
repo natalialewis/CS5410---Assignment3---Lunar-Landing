@@ -18,7 +18,12 @@ public class BackgroundRenderer {
 
     // Renders the background
     public void update(double elapsedTime) {
-        Rectangle gameBackground = new Rectangle(-0.5625f, -0.5625f, 1.125f, 1.125f, -1.0f);
+        // White Border
+        Rectangle border = new Rectangle(-0.5025f, -0.5025f, 1.005f, 1.005f, -1.0f);
+        graphics.draw(border, Color.WHITE);
+
+        // Space Background
+        Rectangle gameBackground = new Rectangle(-0.5f, -0.5f, 1.0f, 1.0f, -1.0f);
         graphics.draw(texBackground, gameBackground, Color.WHITE);
     }
 }
