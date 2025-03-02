@@ -13,12 +13,16 @@ public class MainMenuView extends GameStateView {
         Credits,
         Quit;
 
+        // Moves the cursor down one menu item
         public MenuState next() {
+            // The remainder moves the cursor to the top if it is at the bottom
             int nextOrdinal = (this.ordinal() + 1) % MenuState.values().length;
             return MenuState.values()[nextOrdinal];
         }
 
+        // Moves the cursor up one menu item
         public MenuState previous() {
+            // The remainder moves the cursor to the bottom if it is at the top
             int previousOrdinal = (this.ordinal() - 1) % MenuState.values().length;
             if (previousOrdinal < 0) {
                 previousOrdinal = Quit.ordinal();
@@ -27,8 +31,10 @@ public class MainMenuView extends GameStateView {
         }
     }
 
+    // The current menu item selected; Starts with New Game
     private MenuState currentSelection = MenuState.NewGame;
     private KeyboardInput inputKeyboard;
+    // Tracks next screen to go to
     private GameStateEnum nextGameState = GameStateEnum.MainMenu;
     private Font fontMenu;
     private Font fontSelected;
@@ -41,6 +47,7 @@ public class MainMenuView extends GameStateView {
         fontSelected = new Font("resources/fonts/Roboto-Bold.ttf", 48, false);
 
         inputKeyboard = new KeyboardInput(graphics.getWindow());
+
         // Arrow keys to navigate the menu
         inputKeyboard.registerCommand(GLFW_KEY_UP, true, (double elapsedTime) -> {
             currentSelection = currentSelection.previous();
@@ -79,7 +86,7 @@ public class MainMenuView extends GameStateView {
     @Override
     public void render(double elapsedTime) {
         final float HEIGHT_MENU_ITEM = 0.075f;
-        float top = -0.25f;
+        float top = -0.2f;
         top = renderMenuItem(currentSelection == MenuState.NewGame ? fontSelected : fontMenu, "New Game", top, HEIGHT_MENU_ITEM, currentSelection == MenuState.NewGame ? Color.YELLOW : Color.BLUE);
         top = renderMenuItem(currentSelection == MenuState.HighScores ? fontSelected : fontMenu, "High Scores", top, HEIGHT_MENU_ITEM, currentSelection == MenuState.HighScores ? Color.YELLOW : Color.BLUE);
         top = renderMenuItem(currentSelection == MenuState.Controls ? fontSelected : fontMenu, "Controls", top, HEIGHT_MENU_ITEM, currentSelection == MenuState.Controls ? Color.YELLOW : Color.BLUE);
