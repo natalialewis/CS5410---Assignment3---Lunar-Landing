@@ -5,13 +5,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="8858ee06-ea5c-4baa-8898-f17b08ca1729" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/../../../CS5400/Code Samples/WebGPU/WebGPU-Deferred-Rendering/scripts/driver.js" beforeDir="false" afterPath="$PROJECT_DIR$/../../../CS5400/Code Samples/WebGPU/WebGPU-Deferred-Rendering/scripts/driver.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../../CS5400/Code Samples/WebGPU/WebGPU-Diffuse-Per-Vertex/src/driver.js" beforeDir="false" afterPath="$PROJECT_DIR$/../../../CS5400/Code Samples/WebGPU/WebGPU-Diffuse-Per-Vertex/src/driver.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../../CS5400/Code Samples/WebGPU/WebGPU-Diffuse-Per_Pixel/src/driver.js" beforeDir="false" afterPath="$PROJECT_DIR$/../../../CS5400/Code Samples/WebGPU/WebGPU-Diffuse-Per_Pixel/src/driver.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../../CS5400/Code Samples/WebGPU/WebGPU-Instancing/src/driver.js" beforeDir="false" afterPath="$PROJECT_DIR$/../../../CS5400/Code Samples/WebGPU/WebGPU-Instancing/src/driver.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../../CS5400/Code Samples/WebGPU/WebGPU-PLY-Model/src/driver.js" beforeDir="false" afterPath="$PROJECT_DIR$/../../../CS5400/Code Samples/WebGPU/WebGPU-PLY-Model/src/driver.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../Summer 2024 - SDU/Daily Schedule.odt" beforeDir="false" afterPath="$PROJECT_DIR$/../../Summer 2024 - SDU/Daily Schedule.odt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/AboutView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/CreditsView.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Game.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Game.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/GameStateEnum.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GameStateEnum.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/HelpView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ControlsView.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/MainMenuView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/MainMenuView.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -26,12 +26,13 @@
     </option>
   </component>
   <component name="Git.Settings">
-    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../../.." />
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 0
 }</component>
   <component name="ProjectId" id="2fmQPlEJuzn0X51zViugy0Oatt2" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -41,13 +42,14 @@
     "Application.Driver - Windows/Linux.executor": "Run",
     "Application.Driver.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "trunk",
+    "git-widget-placeholder": "master",
+    "ignore.virus.scanning.warn.message": "true",
     "kotlin-language-version-configured": "true",
     "last_opened_file_path": "C:/Users/deanm/Desktop/CS 5410 - SDU/GameState - Menus",
     "project.structure.last.edited": "Libraries",
     "project.structure.proportion": "0.15",
     "project.structure.side.proportion": "0.2",
-    "settings.editor.selected.configurable": "configurable.group.appearance"
+    "settings.editor.selected.configurable": "project.propVCSSupport.DirectoryMappings"
   }
 }]]></component>
   <component name="RunManager" selected="Application.Driver - Windows/Linux">

@@ -4,10 +4,10 @@ import edu.usu.graphics.Graphics2D;
 
 import static org.lwjgl.glfw.GLFW.*;
 
-public class AboutView extends GameStateView {
+public class ControlsView extends GameStateView {
 
     private KeyboardInput inputKeyboard;
-    private GameStateEnum nextGameState = GameStateEnum.About;
+    private GameStateEnum nextGameState = GameStateEnum.Controls;
     private Font font;
 
     @Override
@@ -25,7 +25,7 @@ public class AboutView extends GameStateView {
 
     @Override
     public void initializeSession() {
-        nextGameState = GameStateEnum.About;
+        nextGameState = GameStateEnum.Controls;
     }
 
     @Override
@@ -41,7 +41,7 @@ public class AboutView extends GameStateView {
 
     @Override
     public void render(double elapsedTime) {
-        final String message = "*I* wrote this amazing game!";
+        final String message = "This is how to play the game";
         final float height = 0.075f;
         final float width = font.measureTextWidth(message, height);
 
