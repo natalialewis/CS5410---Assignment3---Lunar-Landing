@@ -5,7 +5,7 @@ import edu.usu.graphics.Graphics2D;
 import edu.usu.graphics.Rectangle;
 import edu.usu.graphics.Texture;
 
-public class BackgroundRenderer {
+public class BackgroundRenderer extends System {
 
     private final Graphics2D graphics;
     private final Texture texBackground;
