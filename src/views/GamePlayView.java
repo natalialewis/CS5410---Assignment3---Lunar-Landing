@@ -1,3 +1,5 @@
+package views;
+
 import core.KeyboardInput;
 import edu.usu.graphics.*;
 
@@ -18,7 +20,7 @@ public class GamePlayView extends GameStateView {
 
         font = new Font("resources/fonts/Roboto-Regular.ttf", 48, false);
 
-        Texture texBackground = new Texture("resources/images/background.png");
+        Texture texBackground = new Texture("resources/images/background.jpg");
 
         inputKeyboard = new KeyboardInput(graphics.getWindow());
         // When ESC is pressed, set the appropriate new game state

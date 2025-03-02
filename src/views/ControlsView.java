@@ -1,3 +1,5 @@
+package views;
+
 import core.KeyboardInput;
 import edu.usu.graphics.Color;
 import edu.usu.graphics.Font;
