@@ -1,5 +1,6 @@
 package views;
 
+import core.GameModel;
 import core.KeyboardInput;
 import edu.usu.graphics.*;
 
@@ -9,18 +10,11 @@ public class GamePlayView extends GameStateView {
 
     private KeyboardInput inputKeyboard;
     private GameStateEnum nextGameState = GameStateEnum.GamePlay;
-    private Font font;
-
-    private final Rectangle gameBackground = new Rectangle(-0.5625f, -0.5625f, 1.125f, 1.125f,
-            -1.0f);
+    private GameModel gameModel;
 
     @Override
     public void initialize(Graphics2D graphics) {
         super.initialize(graphics);
-
-        font = new Font("resources/fonts/Roboto-Regular.ttf", 48, false);
-
-        Texture texBackground = new Texture("resources/images/background.jpg");
 
         inputKeyboard = new KeyboardInput(graphics.getWindow());
         // When ESC is pressed, set the appropriate new game state
@@ -31,6 +25,8 @@ public class GamePlayView extends GameStateView {
 
     @Override
     public void initializeSession() {
+        gameModel = new GameModel();
+        gameModel.initialize(graphics);
         nextGameState = GameStateEnum.GamePlay;
     }
 
@@ -43,14 +39,11 @@ public class GamePlayView extends GameStateView {
 
     @Override
     public void update(double elapsedTime) {
+        gameModel.update(elapsedTime);
     }
 
     @Override
     public void render(double elapsedTime) {
-        final String message = "Isn't this game fun!";
-        final float height = 0.075f;
-        final float width = font.measureTextWidth(message, height);
-
-        graphics.drawTextByHeight(font, message, 0.0f - width / 2, 0 - height / 2, height, Color.YELLOW);
+        // Render is in the update of the game model to follow the ECS pattern
     }
 }
