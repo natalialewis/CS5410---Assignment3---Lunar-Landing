@@ -1,3 +1,5 @@
+package core;
+
 import edu.usu.graphics.*;
 
 import java.util.HashMap;

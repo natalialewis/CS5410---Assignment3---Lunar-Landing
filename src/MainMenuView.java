@@ -1,3 +1,4 @@
+import core.KeyboardInput;
 import edu.usu.graphics.Color;
 import edu.usu.graphics.Font;
 import edu.usu.graphics.Graphics2D;
@@ -31,7 +32,7 @@ public class MainMenuView extends GameStateView {
         }
     }
 
-    // The current menu item selected; Starts with New Game
+    // The current menu item selected; Starts with New core.Game
     private MenuState currentSelection = MenuState.NewGame;
     private KeyboardInput inputKeyboard;
     // Tracks next screen to go to
@@ -90,7 +91,7 @@ public class MainMenuView extends GameStateView {
 
         final float HEIGHT_MENU_ITEM = 0.075f;
         float top = -0.2f;
-        top = renderMenuItem(currentSelection == MenuState.NewGame ? fontSelected : fontMenu, "New Game", top, HEIGHT_MENU_ITEM, currentSelection == MenuState.NewGame ? fontSelectedColor: fontMenuColor);
+        top = renderMenuItem(currentSelection == MenuState.NewGame ? fontSelected : fontMenu, "New core.Game", top, HEIGHT_MENU_ITEM, currentSelection == MenuState.NewGame ? fontSelectedColor: fontMenuColor);
         top = renderMenuItem(currentSelection == MenuState.HighScores ? fontSelected : fontMenu, "High Scores", top, HEIGHT_MENU_ITEM, currentSelection == MenuState.HighScores ? fontSelectedColor : fontMenuColor);
         top = renderMenuItem(currentSelection == MenuState.Controls ? fontSelected : fontMenu, "Controls", top, HEIGHT_MENU_ITEM, currentSelection == MenuState.Controls ? fontSelectedColor : fontMenuColor);
         top = renderMenuItem(currentSelection == MenuState.Credits ? fontSelected : fontMenu, "Credits", top, HEIGHT_MENU_ITEM, currentSelection == MenuState.Credits ? fontSelectedColor : fontMenuColor);

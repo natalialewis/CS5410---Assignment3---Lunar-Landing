@@ -1,6 +1,5 @@
-import edu.usu.graphics.Color;
-import edu.usu.graphics.Font;
-import edu.usu.graphics.Graphics2D;
+import core.KeyboardInput;
+import edu.usu.graphics.*;
 
 import static org.lwjgl.glfw.GLFW.*;
 
@@ -10,11 +9,16 @@ public class GamePlayView extends GameStateView {
     private GameStateEnum nextGameState = GameStateEnum.GamePlay;
     private Font font;
 
+    private final Rectangle gameBackground = new Rectangle(-0.5625f, -0.5625f, 1.125f, 1.125f,
+            -1.0f);
+
     @Override
     public void initialize(Graphics2D graphics) {
         super.initialize(graphics);
 
         font = new Font("resources/fonts/Roboto-Regular.ttf", 48, false);
+
+        Texture texBackground = new Texture("resources/images/background.png");
 
         inputKeyboard = new KeyboardInput(graphics.getWindow());
         // When ESC is pressed, set the appropriate new game state
