@@ -5,12 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="8858ee06-ea5c-4baa-8898-f17b08ca1729" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/AboutView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/CreditsView.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Game.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Game.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/GameStateEnum.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GameStateEnum.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/HelpView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ControlsView.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/MainMenuView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/MainMenuView.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -52,6 +47,11 @@
     "settings.editor.selected.configurable": "project.propVCSSupport.DirectoryMappings"
   }
 }]]></component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\talia\OneDrive\Documents\USU\Spring 2025\CS5410\Assignment3 - Natalia Lewis\resources\images" />
+    </key>
+  </component>
   <component name="RunManager" selected="Application.Driver - Windows/Linux">
     <configuration name="Driver - Windows/Linux" type="Application" factoryName="Application">
       <option name="MAIN_CLASS_NAME" value="GameStateDemo" />
