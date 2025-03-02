@@ -1,6 +1,7 @@
 package core;
 
 import edu.usu.graphics.*;
+import views.*;
 
 import java.util.HashMap;
 

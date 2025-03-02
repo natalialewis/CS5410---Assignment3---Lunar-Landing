@@ -6,7 +6,15 @@
   <component name="ChangeListManager">
     <list default="true" id="8858ee06-ea5c-4baa-8898-f17b08ca1729" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/MainMenuView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/MainMenuView.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ControlsView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/ControlsView.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/CreditsView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/CreditsView.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/GamePlayView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/GamePlayView.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/GameStateEnum.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/GameStateEnum.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/GameStateView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/GameStateView.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/HighScoresView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/HighScoresView.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/IGameState.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/IGameState.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/MainMenuView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/MainMenuView.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/core/Game.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/core/Game.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -40,7 +48,7 @@
     "git-widget-placeholder": "master",
     "ignore.virus.scanning.warn.message": "true",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Users/deanm/Desktop/CS 5410 - SDU/GameState - Menus",
+    "last_opened_file_path": "C:/Users/talia/Downloads/ECS - Snake Game",
     "project.structure.last.edited": "Libraries",
     "project.structure.proportion": "0.15",
     "project.structure.side.proportion": "0.2",
@@ -52,18 +60,31 @@
       <recent name="C:\Users\talia\OneDrive\Documents\USU\Spring 2025\CS5410\Assignment3 - Natalia Lewis\resources\images" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.Driver - Windows/Linux">
+  <component name="RunManager" selected="Application.LunarLander">
     <configuration name="Driver - Windows/Linux" type="Application" factoryName="Application">
-      <option name="MAIN_CLASS_NAME" value="GameStateDemo" />
+      <option name="MAIN_CLASS_NAME" value="core.GameStateDemo" />
       <module name="GameState - Menus" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
     <configuration name="Driver - macOS" type="Application" factoryName="Application">
-      <option name="MAIN_CLASS_NAME" value="GameStateDemo" />
+      <option name="MAIN_CLASS_NAME" value="core.GameStateDemo" />
       <module name="GameState - Menus" />
       <option name="VM_PARAMETERS" value="-XstartOnFirstThread" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="LunarLander" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="core.LunarLander" />
+      <module name="GameState - Menus" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="core.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -71,7 +92,13 @@
     <list>
       <item itemvalue="Application.Driver - Windows/Linux" />
       <item itemvalue="Application.Driver - macOS" />
+      <item itemvalue="Application.LunarLander" />
     </list>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.LunarLander" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
