@@ -29,8 +29,8 @@ public class TerrainRenderer extends System{
 
     private void generateTerrain(TerrainPoints terrainPointsComponent) {
         // Initialize terrain with two endpoints
-        terrainPointsComponent.add(new ArrayList<>(Arrays.asList(START_CORD, getRandomGaussian(0.0f))));
-        terrainPointsComponent.add(new ArrayList<>(Arrays.asList(END_CORD, getRandomGaussian(0.0f))));
+        terrainPointsComponent.add(new ArrayList<>(Arrays.asList(START_CORD, getRandomGaussian())));
+        terrainPointsComponent.add(new ArrayList<>(Arrays.asList(END_CORD, getRandomGaussian())));
 
         // Iterate midpoint displacement algorithm 5 times
         for (int i = 0; i < 7; i++) {
@@ -77,23 +77,47 @@ public class TerrainRenderer extends System{
         ArrayList<ArrayList<Float>> points = terrainPointsComponent.getTerrainPoints();
 
         // Random starting coordinate
-        float startX = -0.5f;
-
-        // Makes sure the starting point is within 15% of the edge
-        while(!(startX > -0.35f && startX < 0.25f)) {
-            startX = getRandomGaussian(-0.5f);
-        }
+        float startX = getSafeStartCord();
 
         // Ending coordinates with the ending y being the same as the starting y
         float endX = startX + 0.1f;
 
+        // Second safe zone starting coordinate
+        boolean secondConflictsWithFirst = true;
+        float startX2 = startX;
+
+        while (secondConflictsWithFirst) {
+            float start = getSafeStartCord();
+
+            if (start > startX + 0.1f || start + 0.1f < startX) {
+                secondConflictsWithFirst = false;
+                startX2 = start;
+            }
+        }
+        float endX2 = startX2 + 0.1f;
+
+        replaceY(points, startX, endX);
+        replaceY(points, startX2, endX2);
+    }
+
+    private float getSafeStartCord() {
+        float startX = -0.5f;
+
+        // Makes sure the starting point is within 15% of the edge
+        while(!(startX > -0.35f && startX < 0.25f)) {
+            startX = (float) random.nextGaussian();
+        }
+        return startX;
+    }
+
+    private void replaceY(ArrayList<ArrayList<Float>> points, float startCord, float endCord) {
         // Replace the y values of the points within the safe zone
         float elevation = 1.0f;
 
         for (int i = 0; i < points.size(); i++) {
             ArrayList<Float> point = points.get(i);
             float x = point.get(0);
-            if (x >= startX && x <= endX) {
+            if (x >= startCord && x <= endCord) {
                 if (elevation == 1.0f) {
                     elevation = point.get(1);
                 }
@@ -125,6 +149,7 @@ public class TerrainRenderer extends System{
             point.set(1, scaledY);
         }
     }
+
     @Override
     public void update(double elapsedTime) {
         for (var entity : entities.values()) {
@@ -187,7 +212,7 @@ public class TerrainRenderer extends System{
         }
     }
 
-    private float getRandomGaussian(float bottomValue) {
+    private float getRandomGaussian() {
         double gaussian = random.nextGaussian();
 
         /*
@@ -197,7 +222,7 @@ public class TerrainRenderer extends System{
          */
         double scaledGaussian = (gaussian / 6.0) + 0.15;
 
-        if (scaledGaussian < bottomValue) {
+        if (scaledGaussian < 0.0) {
             scaledGaussian = 0.0;
         } else if (scaledGaussian > 0.5) {
             scaledGaussian = 0.5;
