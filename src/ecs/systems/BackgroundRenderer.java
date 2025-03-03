@@ -4,7 +4,6 @@ import ecs.components.BackgroundAppearance;
 import edu.usu.graphics.Color;
 import edu.usu.graphics.Graphics2D;
 import edu.usu.graphics.Rectangle;
-import edu.usu.graphics.Texture;
 
 public class BackgroundRenderer extends System {
 
@@ -16,7 +15,7 @@ public class BackgroundRenderer extends System {
         this.graphics = graphics;
     }
 
-    // Renders the background
+    @Override
     public void update(double elapsedTime) {
 
         for (var entity: entities.values()) {
