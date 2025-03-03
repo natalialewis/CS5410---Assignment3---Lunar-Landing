@@ -29,8 +29,8 @@ public class TerrainRenderer extends System{
 
     private void generateTerrain(TerrainPoints terrainPointsComponent) {
         // Initialize terrain with two endpoints
-        terrainPointsComponent.add(new ArrayList<>(Arrays.asList(START_CORD, getRandomGaussian())));
-        terrainPointsComponent.add(new ArrayList<>(Arrays.asList(END_CORD, getRandomGaussian())));
+        terrainPointsComponent.add(new ArrayList<>(Arrays.asList(START_CORD, getRandomGaussian(0.0f))));
+        terrainPointsComponent.add(new ArrayList<>(Arrays.asList(END_CORD, getRandomGaussian(0.0f))));
 
         // Iterate midpoint displacement algorithm 5 times
         for (int i = 0; i < 7; i++) {
@@ -55,6 +55,10 @@ public class TerrainRenderer extends System{
 
         // Makes points fit in my game size
         scaleYValues(terrainPointsComponent);
+
+        // Adds safe zone
+        addSafeZone(terrainPointsComponent);
+
         terrainPointsComponent.setTerrainFinal(terrainPointsComponent.getTerrainPoints());
     }
 
@@ -66,6 +70,36 @@ public class TerrainRenderer extends System{
         terrainPointsComponent.surfaceRoughness *= 0.995f;
 
         return y + r;
+    }
+
+    private void addSafeZone(TerrainPoints terrainPointsComponent) {
+        // List of points
+        ArrayList<ArrayList<Float>> points = terrainPointsComponent.getTerrainPoints();
+
+        // Random starting coordinate
+        float startX = -0.5f;
+
+        // Makes sure the starting point is within 15% of the edge
+        while(!(startX > -0.35f && startX < 0.25f)) {
+            startX = getRandomGaussian(-0.5f);
+        }
+
+        // Ending coordinates with the ending y being the same as the starting y
+        float endX = startX + 0.1f;
+
+        // Replace the y values of the points within the safe zone
+        float elevation = 1.0f;
+
+        for (int i = 0; i < points.size(); i++) {
+            ArrayList<Float> point = points.get(i);
+            float x = point.get(0);
+            if (x >= startX && x <= endX) {
+                if (elevation == 1.0f) {
+                    elevation = point.get(1);
+                }
+                point.set(1, elevation);
+            }
+        }
     }
 
     private void scaleYValues(TerrainPoints terrainPointsComponent) {
@@ -153,20 +187,20 @@ public class TerrainRenderer extends System{
         }
     }
 
-    private float getRandomGaussian() {
+    private float getRandomGaussian(float bottomValue) {
         double gaussian = random.nextGaussian();
 
         /*
             Most of the Gaussian values are between -3.0 and 3.0 (bell curve), so I divided the Gaussian value by 6.0
-            to get an approximate range of -0.5 to 0.5. Then I added 0.25 to shift the range to -0.25 to 0.75. Then I
+            to get an approximate range of -0.5 to 0.5. Then I added 0.15 to shift the range to -0.35 to 0.65. Then I
             just have an if statement to get rid of the values that are less than 0.0 or greater than 0.5.
          */
-        double scaledGaussian = (gaussian / 6.0) + 0.25;
+        double scaledGaussian = (gaussian / 6.0) + 0.15;
 
-        if (scaledGaussian < 0.0) {
+        if (scaledGaussian < bottomValue) {
             scaledGaussian = 0.0;
-        } else if (scaledGaussian > 1.0) {
-            scaledGaussian = 1.0;
+        } else if (scaledGaussian > 0.5) {
+            scaledGaussian = 0.5;
         }
 
         return (float) scaledGaussian;
