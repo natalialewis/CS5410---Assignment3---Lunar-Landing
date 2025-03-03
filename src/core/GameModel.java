@@ -56,7 +56,7 @@ public class GameModel {
 
         float initialVelocityX = 0.0f;
         float initialVelocityY = 0.0f;
-        float gravity = 0.04f;
+        float gravity = 0.06f;
 
         Entity entity = Lander.create(texRocket,initialX, initialY, initialAngle, center, initialVelocityX, initialVelocityY, gravity);
 
