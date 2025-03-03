@@ -5,16 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="8858ee06-ea5c-4baa-8898-f17b08ca1729" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/src/ecs/components/TerrainPoints.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ControlsView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/ControlsView.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/CreditsView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/CreditsView.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/GamePlayView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/GamePlayView.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/GameStateEnum.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/GameStateEnum.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/GameStateView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/GameStateView.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/HighScoresView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/HighScoresView.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/IGameState.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/IGameState.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/MainMenuView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/MainMenuView.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/core/Game.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/core/Game.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/core/GameModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/core/GameModel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ecs/systems/TerrainRenderer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ecs/systems/TerrainRenderer.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -44,11 +38,13 @@
   "keyToString": {
     "Application.Driver - Windows/Linux.executor": "Run",
     "Application.Driver.executor": "Run",
+    "Application.LunarLander.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
     "git-widget-placeholder": "master",
     "ignore.virus.scanning.warn.message": "true",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Users/talia/Downloads/ECS - Snake Game",
+    "last_opened_file_path": "C:/Users/talia/Downloads/Rendering - Lines-n-Polygons",
     "project.structure.last.edited": "Libraries",
     "project.structure.proportion": "0.15",
     "project.structure.side.proportion": "0.2",
