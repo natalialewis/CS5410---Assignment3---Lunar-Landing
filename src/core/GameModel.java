@@ -9,7 +9,7 @@ import edu.usu.graphics.Texture;
 import ecs.systems.*;
 import org.joml.Vector2f;
 
-import java.lang.System;
+import static org.lwjgl.glfw.GLFW.*;
 
 
 public class GameModel {
@@ -17,16 +17,20 @@ public class GameModel {
     private ecs.systems.TerrainRenderer terrainRenderer;
     private ecs.systems.LanderRenderer landerRenderer;
     private ecs.systems.Movement movement;
+    private KeyboardInput inputKeyboard;
 
     public void initialize(Graphics2D graphics) {
         var texBackground = new Texture("resources/images/background.jpg");
         var texRocket = new Texture("resources/images/rocket.png");
 
+        // Initialize keyboard
+        inputKeyboard = new KeyboardInput(graphics.getWindow());
+
         // Initialize systems
         backgroundRenderer = new BackgroundRenderer(graphics);
         terrainRenderer = new TerrainRenderer(graphics);
         landerRenderer = new LanderRenderer(graphics);
-        movement = new Movement(graphics);
+        movement = new Movement(graphics, inputKeyboard);
 
 
         // Initialize entities
@@ -57,8 +61,10 @@ public class GameModel {
         float initialVelocityX = 0.0f;
         float initialVelocityY = 0.0f;
         float gravity = 0.06f;
+        float thrust = -0.15f;
 
-        Entity entity = Lander.create(texRocket,initialX, initialY, initialAngle, center, initialVelocityX, initialVelocityY, gravity);
+        Entity entity = Lander.create(texRocket,initialX, initialY, initialAngle, center, initialVelocityX,
+                initialVelocityY, gravity, thrust);
 
         landerRenderer.add(entity);
         movement.add(entity);

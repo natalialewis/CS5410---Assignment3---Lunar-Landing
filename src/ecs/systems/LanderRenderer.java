@@ -27,6 +27,7 @@ public class LanderRenderer extends System {
                     1.0f);
             graphics.draw(entity.get(LanderAppearance.class).getImage(), rocket, landerPosition.getAngle(),
                     landerPosition.getCenter(), Color.WHITE);
+            ecs.components.LanderMovement.check(1.0f);
         }
     }
 }

@@ -22,7 +22,7 @@ public class Game {
         states = new HashMap<>() {
             {
                 put(GameStateEnum.MainMenu, new MainMenuView());
-                put(GameStateEnum.GamePlay, new GamePlayView());
+                put(GameStateEnum.NewGame, new NewGameView());
                 put(GameStateEnum.HighScores, new HighScoresView());
                 put(GameStateEnum.Controls, new ControlsView());
                 put(GameStateEnum.Credits, new CreditsView());
