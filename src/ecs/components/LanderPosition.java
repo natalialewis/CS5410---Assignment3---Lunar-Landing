@@ -20,7 +20,6 @@ public class LanderPosition extends Component{
     }
 
     public float getX() {
-        System.out.println("X: " + x);
         return x;
     }
 
