@@ -79,25 +79,33 @@ public class TerrainRenderer extends System{
         // Random starting coordinate
         float startX = getSafeStartCord();
 
-        // Ending coordinates with the ending y being the same as the starting y
+        // Ending coordinates with the ending y being the same as the starting y (level 2 has smaller safe zone)
         float endX = startX + 0.1f;
-
-        // Second safe zone starting coordinate
-        boolean secondConflictsWithFirst = true;
-        float startX2 = startX;
-
-        while (secondConflictsWithFirst) {
-            float start = getSafeStartCord();
-
-            if (start > startX + 0.1f || start + 0.1f < startX) {
-                secondConflictsWithFirst = false;
-                startX2 = start;
-            }
+        if (!terrainPointsComponent.level1) {
+            endX = startX + 0.06f;
         }
-        float endX2 = startX2 + 0.1f;
 
         replaceY(points, startX, endX);
-        replaceY(points, startX2, endX2);
+
+
+        // Implements a second safe zone if player is on level 1
+        if (terrainPointsComponent.level1) {
+            // Second safe zone starting coordinate
+            boolean secondConflictsWithFirst = true;
+            float startX2 = startX;
+
+            while (secondConflictsWithFirst) {
+                float start = getSafeStartCord();
+
+                if (start > startX + 0.1f || start + 0.1f < startX) {
+                    secondConflictsWithFirst = false;
+                    startX2 = start;
+                }
+            }
+            float endX2 = startX2 + 0.1f;
+
+            replaceY(points, startX2, endX2);
+        }
     }
 
     private float getSafeStartCord() {

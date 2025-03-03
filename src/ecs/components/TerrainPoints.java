@@ -6,6 +6,7 @@ import java.util.Random;
 public class TerrainPoints extends Component {
     public ArrayList<ArrayList<Float>> terrainPoints = new ArrayList<>();
     public ArrayList<ArrayList<Float>> terrainFinal = new ArrayList<>();
+    public boolean level1 = true;
 
     public float surfaceRoughness = 1.0f;  // This changes over time
 
@@ -36,5 +37,9 @@ public class TerrainPoints extends Component {
 
     public void setTerrainFinal(ArrayList<ArrayList<Float>> terrainFinal) {
         this.terrainFinal = terrainFinal;
+    }
+
+    public void levelUp() {
+        level1 = false;
     }
 }
