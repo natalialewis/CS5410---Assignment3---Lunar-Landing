@@ -15,20 +15,85 @@ public class TerrainRenderer extends System{
 
     private final Random random = new Random();
 
-    // Y cord at bottom of the game screen
-    private final float BOTTOM_CORD = 0.5f;
-    // X cord of the start point
-    private final float START_CORD = -0.5f;
-    // X cord of the end point
-    private final float END_CORD = 0.5f;
-
     public TerrainRenderer(Graphics2D graphics) {
         super(ecs.components.TerrainPoints.class);
         this.graphics = graphics;
     }
 
+    @Override
+    public void update(double elapsedTime) {
+        for (var entity : entities.values()) {
+            TerrainPoints terrainPointsComponent = entity.get(ecs.components.TerrainPoints.class);
+
+            // Generate terrain if it hasn't been generated yet
+            if (terrainPointsComponent.getTerrainFinal().isEmpty()) {
+                generateTerrain(terrainPointsComponent);
+            }
+
+            // Render the finished terrain
+            Color terrainColor = new Color(98/255f, 46/255f, 140/255f);
+
+            // Y cord at bottom of the game screen
+            float BOTTOM_CORD = 0.5f;
+
+            // Create left triangles (hypotenuse from bottom to top right)
+            for (int i = 0; i < terrainPointsComponent.size() - 1; i++) {
+                ArrayList<Float> point1 = terrainPointsComponent.get(i);
+                ArrayList<Float> point2 = terrainPointsComponent.get(i + 1);
+
+                // Create points for the triangle
+                Vector3f topLeft = new Vector3f(point1.get(0), point1.get(1), 0.0f);
+                Vector3f topRight = new Vector3f(point2.get(0), point2.get(1), 0.0f);
+                Vector3f bottomLeft = new Vector3f(point1.get(0), BOTTOM_CORD, 0.0f);
+
+                // Create triangle
+                Triangle triangle = new Triangle(topLeft, topRight, bottomLeft);
+
+                // Draw the triangle
+                graphics.draw(triangle, terrainColor);
+            }
+
+            // Create right triangles (hypotenuse from bottom to top left)
+            for (int i = 0; i < terrainPointsComponent.size() - 1; i++) {
+                ArrayList<Float> point1 = terrainPointsComponent.get(i);
+                ArrayList<Float> point2 = terrainPointsComponent.get(i + 1);
+
+                // Create points for the triangle
+                Vector3f bottomLeft = new Vector3f(point1.getFirst(), BOTTOM_CORD, 0.0f);
+                Vector3f topRight = new Vector3f(point2.get(0), point2.get(1), 0.0f);
+                Vector3f bottomRight = new Vector3f(point2.get(0), BOTTOM_CORD, 0.0f);
+
+                // Create triangle
+                Triangle triangle = new Triangle(bottomLeft, topRight, bottomRight);
+
+                // Draw the triangle
+                graphics.draw(triangle, terrainColor);
+            }
+
+            // Draw outline of terrain
+            for (int i = 0; i < terrainPointsComponent.size() - 1; i++) {
+                ArrayList<Float> point1 = terrainPointsComponent.get(i);
+                ArrayList<Float> point2 = terrainPointsComponent.get(i + 1);
+
+                // Create points for the rectangle
+                Vector3f left = new Vector3f(point1.get(0), point1.get(1) - 0.002f, 0.0f);
+                Vector3f right = new Vector3f(point2.get(0), point2.get(1) - 0.002f, 0.0f);
+
+                // Draw the rectangle
+                graphics.draw(left, right, Color.WHITE);
+            }
+        }
+    }
+
     private void generateTerrain(TerrainPoints terrainPointsComponent) {
         // Initialize terrain with two endpoints
+
+        // X cord of the start point
+        float START_CORD = -0.5f;
+
+        // X cord of the end point
+        float END_CORD = 0.5f;
+
         terrainPointsComponent.add(new ArrayList<>(Arrays.asList(START_CORD, getRandomGaussian())));
         terrainPointsComponent.add(new ArrayList<>(Arrays.asList(END_CORD, getRandomGaussian())));
 
@@ -41,7 +106,7 @@ public class TerrainRenderer extends System{
                 ArrayList<Float> point1 = terrainPointsComponent.get(j);
                 ArrayList<Float> point2 = terrainPointsComponent.get(j + 1);
 
-                float newX = (point1.get(0) + point2.get(0)) / 2;
+                float newX = (point1.getFirst() + point2.getFirst()) / 2;
                 float newY = computeNewElevation(point1, point2, terrainPointsComponent);
 
                 newPoints.add(new ArrayList<>(Arrays.asList(newX, newY)));
@@ -122,8 +187,7 @@ public class TerrainRenderer extends System{
         // Replace the y values of the points within the safe zone
         float elevation = 1.0f;
 
-        for (int i = 0; i < points.size(); i++) {
-            ArrayList<Float> point = points.get(i);
+        for (ArrayList<Float> point : points) {
             float x = point.get(0);
             if (x >= startCord && x <= endCord) {
                 if (elevation == 1.0f) {
@@ -155,68 +219,6 @@ public class TerrainRenderer extends System{
 
             // Set the scaled Y value back to the point
             point.set(1, scaledY);
-        }
-    }
-
-    @Override
-    public void update(double elapsedTime) {
-        for (var entity : entities.values()) {
-            TerrainPoints terrainPointsComponent = entity.get(ecs.components.TerrainPoints.class);
-
-            // Generate terrain if it hasn't been generated yet
-            if (terrainPointsComponent.getTerrainFinal().isEmpty()) {
-                generateTerrain(terrainPointsComponent);
-            }
-
-            // Render the finished terrain
-            Color terrainColor = new Color(98/255f, 46/255f, 140/255f);
-
-            // Create left triangles (hypotenuse from bottom to top right)
-            for (int i = 0; i < terrainPointsComponent.size() - 1; i++) {
-                ArrayList<Float> point1 = terrainPointsComponent.get(i);
-                ArrayList<Float> point2 = terrainPointsComponent.get(i + 1);
-
-                // Create points for the triangle
-                Vector3f topLeft = new Vector3f(point1.get(0), point1.get(1), 0.0f);
-                Vector3f topRight = new Vector3f(point2.get(0), point2.get(1), 0.0f);
-                Vector3f bottomLeft = new Vector3f(point1.get(0), BOTTOM_CORD, 0.0f);
-
-                // Create triangle
-                Triangle triangle = new Triangle(topLeft, topRight, bottomLeft);
-
-                // Draw the triangle
-                graphics.draw(triangle, terrainColor);
-            }
-
-            // Create right triangles (hypotenuse from bottom to top left)
-            for (int i = 0; i < terrainPointsComponent.size() - 1; i++) {
-                ArrayList<Float> point1 = terrainPointsComponent.get(i);
-                ArrayList<Float> point2 = terrainPointsComponent.get(i + 1);
-
-                // Create points for the triangle
-                Vector3f bottomLeft = new Vector3f(point1.get(0), BOTTOM_CORD, 0.0f);
-                Vector3f topRight = new Vector3f(point2.get(0), point2.get(1), 0.0f);
-                Vector3f bottomRight = new Vector3f(point2.get(0), BOTTOM_CORD, 0.0f);
-
-                // Create triangle
-                Triangle triangle = new Triangle(bottomLeft, topRight, bottomRight);
-
-                // Draw the triangle
-                graphics.draw(triangle, terrainColor);
-            }
-
-            // Draw outline of terrain
-            for (int i = 0; i < terrainPointsComponent.size() - 1; i++) {
-                ArrayList<Float> point1 = terrainPointsComponent.get(i);
-                ArrayList<Float> point2 = terrainPointsComponent.get(i + 1);
-
-                // Create points for the rectangle
-                Vector3f left = new Vector3f(point1.get(0), point1.get(1) - 0.002f, 0.0f);
-                Vector3f right = new Vector3f(point2.get(0), point2.get(1) - 0.002f, 0.0f);
-
-                // Draw the rectangle
-                graphics.draw(left, right, Color.WHITE);
-            }
         }
     }
 
