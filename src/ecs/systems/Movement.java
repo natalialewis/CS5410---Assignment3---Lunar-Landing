@@ -21,7 +21,7 @@ public class Movement extends System {
             float elapsedSec = (float) elapsedTime;
 
             // Update velocity from gravity
-            movement.setVelocityX(movement.getVelocityX() + movement.getGravity() * elapsedSec);
+            movement.setVelocityY(movement.getVelocityY() + movement.getGravity() * elapsedSec);
 
             // Calculate velocity vector directions based on rocket angle
             float angle = position.getAngle();
