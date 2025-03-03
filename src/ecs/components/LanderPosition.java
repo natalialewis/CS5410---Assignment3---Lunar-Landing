@@ -3,10 +3,10 @@ package ecs.components;
 import org.joml.Vector2f;
 
 public class LanderPosition extends Component{
-    public float x;
-    public float y;
-    public float angle;
-    public Vector2f center;
+    private float x;
+    private float y;
+    private final float angle;
+    private final Vector2f center;
 
     public LanderPosition(float x, float y, float angle, Vector2f center) {
         this.x = x;
@@ -34,5 +34,9 @@ public class LanderPosition extends Component{
 
     public float getAngle() {
         return angle;
+    }
+
+    public Vector2f getCenter() {
+        return center;
     }
 }
