@@ -1,7 +1,5 @@
 package ecs.components;
 
-import edu.usu.graphics.Texture;
-
 public class LanderMovement extends Component{
     private float velocityX;
     private float velocityY;
