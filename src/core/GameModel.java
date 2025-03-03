@@ -1,5 +1,6 @@
 package core;
 
+import ecs.entities.Background;
 import ecs.entities.Entity;
 import ecs.entities.Terrain;
 import edu.usu.graphics.Graphics2D;
@@ -16,10 +17,14 @@ public class GameModel {
     public void initialize(Graphics2D graphics) {
         var texBackground = new Texture("resources/images/background.jpg");
 
-        backgroundRenderer = new BackgroundRenderer(graphics, texBackground);
+        // Initialize systems
+        backgroundRenderer = new BackgroundRenderer(graphics);
         terrainRenderer = new TerrainRenderer(graphics);
 
+        // Initialize entities
+        backgroundRenderer.add(Background.create(texBackground));
         terrainRenderer.add(Terrain.create());
+
     }
 
     public void update(double elapsedTime) {
