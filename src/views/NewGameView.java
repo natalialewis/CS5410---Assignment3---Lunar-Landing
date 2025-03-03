@@ -6,10 +6,10 @@ import edu.usu.graphics.*;
 
 import static org.lwjgl.glfw.GLFW.*;
 
-public class GamePlayView extends GameStateView {
+public class NewGameView extends GameStateView {
 
     private KeyboardInput inputKeyboard;
-    private GameStateEnum nextGameState = GameStateEnum.GamePlay;
+    private GameStateEnum nextGameState = GameStateEnum.NewGame;
     private GameModel gameModel;
 
     @Override
@@ -27,7 +27,7 @@ public class GamePlayView extends GameStateView {
     public void initializeSession() {
         gameModel = new GameModel();
         gameModel.initialize(graphics);
-        nextGameState = GameStateEnum.GamePlay;
+        nextGameState = GameStateEnum.NewGame;
     }
 
     @Override

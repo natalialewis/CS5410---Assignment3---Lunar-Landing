@@ -2,7 +2,7 @@ package views;
 
 public enum GameStateEnum {
     MainMenu,
-    GamePlay,
+    NewGame,
     HighScores,
     Controls,
     Credits,
