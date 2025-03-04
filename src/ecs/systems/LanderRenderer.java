@@ -27,10 +27,6 @@ public class LanderRenderer extends System {
             // Rocket
             Rectangle rocket = new Rectangle(landerPosition.getX(), landerPosition.getY(), 0.07f, 0.07f,
                     1.0f);
-//            movement.check(landerPosition.getX());
-//            movement.check(landerPosition.getY());
-
-//            graphics.draw(entity.get(LanderAppearance.class).getImage(), rocket, Color.WHITE);
             graphics.draw(entity.get(LanderAppearance.class).getImage(), rocket, landerPosition.getAngle(),
                     landerPosition.getCenter(), Color.WHITE);
         }

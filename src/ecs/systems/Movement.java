@@ -16,6 +16,7 @@ public class Movement extends System {
     LanderPosition position;
     float elapsedSec;
     boolean thrustUpdated = false;
+    float rotateSpeed = 1.5f;
 
 
     public Movement(Graphics2D graphics, KeyboardInput input) {
@@ -26,6 +27,14 @@ public class Movement extends System {
 
         input.registerCommand(GLFW_KEY_UP, false, (double elapsedTime) -> {
             updateThrust();
+        });
+
+        input.registerCommand(GLFW_KEY_LEFT, false, (double elapsedTime) -> {
+            rotateLeft();
+        });
+
+        input.registerCommand(GLFW_KEY_RIGHT, false, (double elapsedTime) -> {
+            rotateRight();
         });
     }
 
@@ -49,6 +58,14 @@ public class Movement extends System {
             }
         }
 
+    }
+
+    private void rotateLeft() {
+        position.setAngle(position.getAngle() - rotateSpeed * elapsedSec);
+    }
+
+    private void rotateRight() {
+        position.setAngle(position.getAngle() + rotateSpeed * elapsedSec);
     }
 
     private void updateThrust() {

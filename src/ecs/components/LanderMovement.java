@@ -43,10 +43,4 @@ public class LanderMovement extends Component{
     public float getThrust() {
         return this.thrust;
     }
-
-    public static void check(float check) {
-        System.out.println(check);
-    }
-
-
 }

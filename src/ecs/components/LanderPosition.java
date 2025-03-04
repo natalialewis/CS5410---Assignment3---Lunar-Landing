@@ -5,7 +5,7 @@ import org.joml.Vector2f;
 public class LanderPosition extends Component{
     private float x;
     private float y;
-    private final float angle;
+    private float angle;
     private Vector2f center;
 
     public LanderPosition(float x, float y, float angle, Vector2f center) {
@@ -33,6 +33,10 @@ public class LanderPosition extends Component{
 
     public float getAngle() {
         return angle;
+    }
+
+    public void setAngle(float angle) {
+        this.angle = angle;
     }
 
     public Vector2f getCenter() {
