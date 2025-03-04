@@ -4,6 +4,7 @@ import ecs.entities.Background;
 import ecs.entities.Entity;
 import ecs.entities.Lander;
 import ecs.entities.Terrain;
+import edu.usu.graphics.Font;
 import edu.usu.graphics.Graphics2D;
 import edu.usu.graphics.Texture;
 import ecs.systems.*;
@@ -22,6 +23,7 @@ public class GameModel {
     public void initialize(Graphics2D graphics) {
         var texBackground = new Texture("resources/images/background.jpg");
         var texRocket = new Texture("resources/images/rocket.png");
+        var fontHud = new Font("resources/fonts/Roboto-Regular.ttf", 20, false);
 
         // Initialize keyboard
         inputKeyboard = new KeyboardInput(graphics.getWindow());
@@ -36,7 +38,7 @@ public class GameModel {
         // Initialize entities
         backgroundRenderer.add(Background.create(texBackground));
         terrainRenderer.add(Terrain.create());
-        initializeRocket(texRocket);
+        initializeRocket(texRocket, fontHud);
 
     }
 
@@ -52,7 +54,7 @@ public class GameModel {
         Vector2f center = new Vector2f(x + 0.035f, y + 0.035f);
     }
 
-    private void initializeRocket(Texture texRocket) {
+    private void initializeRocket(Texture texRocket, Font font) {
         float initialX = -0.3f;
         float initialY = -0.45f;
         float initialAngle = (float) Math.PI * (0.0f / 2.0f);
@@ -62,9 +64,10 @@ public class GameModel {
         float initialVelocityY = 0.0f;
         float gravity = 0.020f;
         float thrust = 0.025f;
+        float fuel = 20.00f;
 
         Entity entity = Lander.create(texRocket,initialX, initialY, initialAngle, center, initialVelocityX,
-                initialVelocityY, gravity, thrust);
+                initialVelocityY, gravity, thrust, font, fuel);
 
         landerRenderer.add(entity);
         movement.add(entity);
