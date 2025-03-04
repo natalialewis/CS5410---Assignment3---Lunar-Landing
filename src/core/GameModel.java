@@ -55,13 +55,13 @@ public class GameModel {
     private void initializeRocket(Texture texRocket) {
         float initialX = -0.3f;
         float initialY = -0.45f;
-        float initialAngle = (float) Math.PI * (3.0f / 2.0f);
+        float initialAngle = (float) Math.PI * (0.0f / 2.0f);
         Vector2f center = new Vector2f(initialX + 0.035f, initialY + 0.035f);
 
         float initialVelocityX = 0.0f;
         float initialVelocityY = 0.0f;
         float gravity = 0.06f;
-        float thrust = -0.15f;
+        float thrust = 0.15f;
 
         Entity entity = Lander.create(texRocket,initialX, initialY, initialAngle, center, initialVelocityX,
                 initialVelocityY, gravity, thrust);

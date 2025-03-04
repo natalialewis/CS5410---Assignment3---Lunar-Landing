@@ -6,7 +6,7 @@ public class LanderPosition extends Component{
     private float x;
     private float y;
     private final float angle;
-    private final Vector2f center;
+    private Vector2f center;
 
     public LanderPosition(float x, float y, float angle, Vector2f center) {
         this.x = x;
@@ -37,5 +37,9 @@ public class LanderPosition extends Component{
 
     public Vector2f getCenter() {
         return center;
+    }
+
+    public void setCenter(Vector2f center) {
+        this.center = center;
     }
 }

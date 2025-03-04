@@ -1,6 +1,7 @@
 package ecs.systems;
 
 import ecs.components.LanderAppearance;
+import ecs.components.LanderMovement;
 import ecs.components.LanderPosition;
 import edu.usu.graphics.Color;
 import edu.usu.graphics.Graphics2D;
@@ -21,13 +22,17 @@ public class LanderRenderer extends System {
 
         for (var entity: entities.values()) {
             LanderPosition landerPosition = entity.get(ecs.components.LanderPosition.class);
+            LanderMovement movement = entity.get(LanderMovement.class);
 
             // Rocket
             Rectangle rocket = new Rectangle(landerPosition.getX(), landerPosition.getY(), 0.07f, 0.07f,
                     1.0f);
+//            movement.check(landerPosition.getX());
+//            movement.check(landerPosition.getY());
+
+//            graphics.draw(entity.get(LanderAppearance.class).getImage(), rocket, Color.WHITE);
             graphics.draw(entity.get(LanderAppearance.class).getImage(), rocket, landerPosition.getAngle(),
                     landerPosition.getCenter(), Color.WHITE);
-            ecs.components.LanderMovement.check(1.0f);
         }
     }
 }
