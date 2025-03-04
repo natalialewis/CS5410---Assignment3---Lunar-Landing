@@ -1,6 +1,7 @@
 package ecs.systems;
 
 import core.KeyboardInput;
+import ecs.components.LanderFuel;
 import ecs.components.LanderMovement;
 import ecs.components.LanderPosition;
 import edu.usu.graphics.Graphics2D;
@@ -14,6 +15,7 @@ public class Movement extends System {
     KeyboardInput input;
     LanderMovement movement;
     LanderPosition position;
+    LanderFuel fuel;
     float elapsedSec;
     boolean thrustUpdated = false;
     float rotateSpeed = 1.5f;
@@ -47,6 +49,7 @@ public class Movement extends System {
         for (var entity : entities.values()) {
             movement = entity.get(LanderMovement.class);
             position = entity.get(LanderPosition.class);
+            fuel = entity.get(LanderFuel.class);
 
             glfwPollEvents();
             input.update(elapsedTime);
@@ -87,6 +90,10 @@ public class Movement extends System {
 
         // Update the center of the lander
         position.setCenter(new Vector2f(position.getX() + 0.035f, position.getY() + 0.035f));
+
+        // Update fuel
+        float newLevel = Float.parseFloat(String.format("%.2f",fuel.getFuel() - elapsedSec));
+        fuel.setFuel(newLevel);
     }
 
     private void updateGravity(LanderMovement movement, LanderPosition position, float elapsedSec) {
