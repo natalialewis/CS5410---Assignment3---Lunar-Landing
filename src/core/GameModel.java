@@ -65,9 +65,11 @@ public class GameModel {
         float gravity = 0.020f;
         float thrust = 0.025f;
         float fuel = 20.00f;
+        float width = 0.025f;
+        float height = 0.045f;
 
         Entity entity = Lander.create(texRocket,initialX, initialY, initialAngle, center, initialVelocityX,
-                initialVelocityY, gravity, thrust, font, fuel);
+                initialVelocityY, gravity, thrust, font, fuel, width, height);
 
         landerRenderer.add(entity);
         movement.add(entity);
