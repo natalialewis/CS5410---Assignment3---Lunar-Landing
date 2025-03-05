@@ -1,6 +1,7 @@
 package ecs.systems;
 
 import core.KeyboardInput;
+import ecs.components.LanderAppearance;
 import ecs.components.LanderFuel;
 import ecs.components.LanderMovement;
 import ecs.components.LanderPosition;
@@ -15,6 +16,7 @@ public class Movement extends System {
     KeyboardInput input;
     LanderMovement movement;
     LanderPosition position;
+    LanderAppearance appearance;
     LanderFuel fuel;
     float elapsedSec;
     boolean thrustUpdated = false;
@@ -22,7 +24,8 @@ public class Movement extends System {
 
 
     public Movement(Graphics2D graphics, KeyboardInput input) {
-        super(ecs.components.LanderMovement.class, ecs.components.LanderPosition.class);
+        super(ecs.components.LanderMovement.class, ecs.components.LanderPosition.class,
+                ecs.components.LanderAppearance.class);
 
         this.graphics = graphics;
         this.input = input;
@@ -50,6 +53,7 @@ public class Movement extends System {
             movement = entity.get(LanderMovement.class);
             position = entity.get(LanderPosition.class);
             fuel = entity.get(LanderFuel.class);
+            appearance = entity.get(LanderAppearance.class);
 
             glfwPollEvents();
             input.update(elapsedTime);
@@ -89,7 +93,8 @@ public class Movement extends System {
         position.setY(position.getY() + movement.getVelocityY() * elapsedSec);
 
         // Update the center of the lander
-        position.setCenter(new Vector2f(position.getX() + 0.0125f, position.getY() + 0.0225f));
+        position.setCenter(new Vector2f(position.getX() + appearance.getWidth() / 2, position.getY() +
+                appearance.getHeight() / 2));
 
         // Update fuel
         float newLevel = Float.parseFloat(String.format("%.2f",fuel.getFuel() - elapsedSec));
@@ -106,6 +111,7 @@ public class Movement extends System {
         position.setY(position.getY() + movement.getVelocityY() * elapsedSec);
 
         // Update the center of the lander
-        position.setCenter(new Vector2f(position.getX() + 0.0125f, position.getY() + 0.0225f));
+        position.setCenter(new Vector2f(position.getX() + appearance.getWidth() / 2, position.getY() +
+                appearance.getHeight() / 2));
     }
 }
