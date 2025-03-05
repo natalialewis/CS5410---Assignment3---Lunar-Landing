@@ -71,16 +71,9 @@ public class TerrainRenderer extends System{
             }
 
             // Draw outline of terrain
-            for (int i = 0; i < terrainPointsComponent.size() - 1; i++) {
-                ArrayList<Float> point1 = terrainPointsComponent.get(i);
-                ArrayList<Float> point2 = terrainPointsComponent.get(i + 1);
+            for (ArrayList<Vector3f> line : terrainPointsComponent.getLines()) {
 
-                // Create points for the rectangle
-                Vector3f left = new Vector3f(point1.get(0), point1.get(1) - 0.002f, 0.0f);
-                Vector3f right = new Vector3f(point2.get(0), point2.get(1) - 0.002f, 0.0f);
-
-                // Draw the rectangle
-                graphics.draw(left, right, Color.WHITE);
+                graphics.draw(line.get(0), line.get(1), Color.WHITE);
             }
         }
     }
@@ -125,14 +118,26 @@ public class TerrainRenderer extends System{
         addSafeZone(terrainPointsComponent);
 
         terrainPointsComponent.setTerrainFinal(terrainPointsComponent.getTerrainPoints());
+
+        // Add outline of terrain
+        for (int i = 0; i < terrainPointsComponent.size() - 1; i++) {
+            ArrayList<Float> point1 = terrainPointsComponent.get(i);
+            ArrayList<Float> point2 = terrainPointsComponent.get(i + 1);
+
+            // Create points for the rectangle (Move up 0.001f to make sure purple triangles don't look rough)
+            Vector3f left = new Vector3f(point1.get(0), point1.get(1) - 0.001f, 1.0f);
+            Vector3f right = new Vector3f(point2.get(0), point2.get(1) - 0.001f, 1.0f);
+
+            terrainPointsComponent.addLine(new ArrayList<>(Arrays.asList(left, right)));
+        }
     }
 
     private float computeNewElevation(ArrayList<Float> point1, ArrayList<Float> point2, TerrainPoints terrainPointsComponent) {
         float y = (point1.get(1) + point2.get(1)) / 2;
-        float r = terrainPointsComponent.surfaceRoughness * (float) random.nextGaussian() * Math.abs(point2.get(0) - point1.get(0));
+        float r = terrainPointsComponent.getSurfaceRoughness() * (float) random.nextGaussian() * Math.abs(point2.get(0) - point1.get(0));
 
         // Makes surface a little bit smoother as the length between points gets smaller
-        terrainPointsComponent.surfaceRoughness *= 0.995f;
+        terrainPointsComponent.setSurfaceRoughness(terrainPointsComponent.getSurfaceRoughness() * 0.995f);
 
         return y + r;
     }
@@ -146,7 +151,7 @@ public class TerrainRenderer extends System{
 
         // Ending coordinates with the ending y being the same as the starting y (level 2 has smaller safe zone)
         float endX = startX + 0.1f;
-        if (!terrainPointsComponent.level1) {
+        if (!terrainPointsComponent.isLevel1()) {
             endX = startX + 0.06f;
         }
 
@@ -154,7 +159,7 @@ public class TerrainRenderer extends System{
 
 
         // Implements a second safe zone if player is on level 1
-        if (terrainPointsComponent.level1) {
+        if (terrainPointsComponent.isLevel1()) {
             // Second safe zone starting coordinate
             boolean secondConflictsWithFirst = true;
             float startX2 = startX;
@@ -203,7 +208,7 @@ public class TerrainRenderer extends System{
         float minY = Float.MAX_VALUE;
         float maxY = Float.MIN_VALUE;
 
-        for (ArrayList<Float> point : terrainPointsComponent.terrainPoints) {
+        for (ArrayList<Float> point : terrainPointsComponent.getTerrainPoints()) {
             float y = point.get(1);
 
             // Update min and max Y values
@@ -211,7 +216,7 @@ public class TerrainRenderer extends System{
             maxY = Math.max(maxY, y);
         }
 
-        for (ArrayList<Float> point : terrainPointsComponent.terrainPoints) {
+        for (ArrayList<Float> point : terrainPointsComponent.getTerrainPoints()) {
             float y = point.get(1);
 
             // Scale the Y value to fit between 0.0f and 0.5f (half of my game size)
