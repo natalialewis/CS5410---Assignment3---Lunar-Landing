@@ -52,7 +52,7 @@ public class LanderRenderer extends System {
 
     private float renderHUDItem(Font font, String text, float left, float top, float height, Color color) {
         float width = font.measureTextWidth(text, height);
-        graphics.drawTextByHeight(font, text, left, top, height, color);
+        graphics.drawTextByHeight(font, text, left, top, height, 1.0f, color);
 
         return top + height;
     }
