@@ -14,6 +14,7 @@ public class Lander {
         lander.add(new ecs.components.LanderPosition(x, y, angle, center));
         lander.add(new ecs.components.LanderMovement(velocityX, velocityY, gravity, thrust));
         lander.add(new ecs.components.LanderFuel(fuel));
+        lander.add(new ecs.components.Collision());
 
         return lander;
     }
