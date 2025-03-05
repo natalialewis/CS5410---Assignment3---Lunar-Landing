@@ -1,4 +1,4 @@
-package core;
+package ecs.components;
 
-public class Collision {
+public class Collision extends Component {
 }
