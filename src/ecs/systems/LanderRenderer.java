@@ -30,8 +30,8 @@ public class LanderRenderer extends System {
             LanderFuel fuel = entity.get(LanderFuel.class);
 
             // Rocket
-            Rectangle rocket = new Rectangle(landerPosition.getX(), landerPosition.getY(), 0.025f, 0.045f,
-                    1.0f);
+            Rectangle rocket = new Rectangle(landerPosition.getX(), landerPosition.getY(), landerAppearance.getWidth(),
+                    landerAppearance.getHeight(), 1.0f);
             graphics.draw(entity.get(LanderAppearance.class).getImage(), rocket, landerPosition.getAngle(),
                     landerPosition.getCenter(), Color.WHITE);
 
