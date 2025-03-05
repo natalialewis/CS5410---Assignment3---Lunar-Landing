@@ -12,7 +12,7 @@ import static org.lwjgl.glfw.GLFW.*;
 
 public class Movement extends System {
 
-    Graphics2D graphics;
+//    Graphics2D graphics;
     KeyboardInput input;
     LanderMovement movement;
     LanderPosition position;
@@ -23,11 +23,11 @@ public class Movement extends System {
     float rotateSpeed = 1.5f;
 
 
-    public Movement(Graphics2D graphics, KeyboardInput input) {
+    public Movement(KeyboardInput input) {
         super(ecs.components.LanderMovement.class, ecs.components.LanderPosition.class,
                 ecs.components.LanderAppearance.class);
 
-        this.graphics = graphics;
+//        this.graphics = graphics;
         this.input = input;
 
         input.registerCommand(GLFW_KEY_UP, false, (double elapsedTime) -> {
