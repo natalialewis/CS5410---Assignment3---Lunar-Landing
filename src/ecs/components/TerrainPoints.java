@@ -5,9 +5,9 @@ import org.joml.Vector3f;
 import java.util.ArrayList;
 
 public class TerrainPoints extends Component {
-    private ArrayList<ArrayList<Float>> terrainPoints;
+    private final ArrayList<ArrayList<Float>> terrainPoints;
     private ArrayList<ArrayList<Float>> terrainFinal;
-    private ArrayList<ArrayList<Vector3f>> lines;
+    private final ArrayList<ArrayList<Vector3f>> lines;
     private float surfaceRoughness = 1.0f;
     private boolean level1;
 
