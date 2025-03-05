@@ -89,7 +89,7 @@ public class Movement extends System {
         position.setY(position.getY() + movement.getVelocityY() * elapsedSec);
 
         // Update the center of the lander
-        position.setCenter(new Vector2f(position.getX() + 0.035f, position.getY() + 0.035f));
+        position.setCenter(new Vector2f(position.getX() + 0.0125f, position.getY() + 0.0225f));
 
         // Update fuel
         float newLevel = Float.parseFloat(String.format("%.2f",fuel.getFuel() - elapsedSec));
@@ -106,6 +106,6 @@ public class Movement extends System {
         position.setY(position.getY() + movement.getVelocityY() * elapsedSec);
 
         // Update the center of the lander
-        position.setCenter(new Vector2f(position.getX() + 0.035f, position.getY() + 0.035f));
+        position.setCenter(new Vector2f(position.getX() + 0.0125f, position.getY() + 0.0225f));
     }
 }
