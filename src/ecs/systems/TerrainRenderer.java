@@ -26,7 +26,7 @@ public class TerrainRenderer extends System{
             TerrainPoints terrainPointsComponent = entity.get(ecs.components.TerrainPoints.class);
 
             // Generate terrain if it hasn't been generated yet
-            if (terrainPointsComponent.getTerrainFinal().isEmpty()) {
+            if (terrainPointsComponent.getNeedsGeneration()) {
                 generateTerrain(terrainPointsComponent);
             }
 
@@ -79,6 +79,9 @@ public class TerrainRenderer extends System{
     }
 
     private void generateTerrain(TerrainPoints terrainPointsComponent) {
+        // Set needsGeneration to false
+        terrainPointsComponent.setNeedsGeneration(false);
+
         // Initialize terrain with two endpoints
 
         // X cord of the start point
