@@ -1,10 +1,9 @@
 package ecs.systems;
 
-import ecs.components.LanderAppearance;
-import ecs.components.LanderMovement;
-import ecs.components.LanderPosition;
-import ecs.components.TerrainPoints;
+import ecs.components.*;
 import ecs.entities.Entity;
+import edu.usu.graphics.Color;
+import edu.usu.graphics.Graphics2D;
 import org.joml.Vector2f;
 import org.joml.Vector3f;
 
@@ -12,18 +11,23 @@ import java.util.ArrayList;
 
 public class Collision extends System {
 
-    public Collision() {
+    private final Graphics2D graphics;
+
+    public Collision(Graphics2D graphics) {
         super(ecs.components.Collision.class, TerrainPoints.class, LanderPosition.class,
                 LanderAppearance.class, LanderMovement.class);
+
+        this.graphics = graphics;
     }
 
     @Override
     protected boolean isInterested(Entity entity) {
-        return entity.contains(TerrainPoints.class) || (
+        return entity.contains(TerrainPoints.class)
+                || entity.contains((Count.class)) ||
                 entity.contains(LanderAppearance.class)
                         && entity.contains(LanderPosition.class)
                         && entity.contains(ecs.components.Collision.class
-                ));
+                );
     }
 
     @Override
@@ -32,6 +36,8 @@ public class Collision extends System {
         LanderPosition landerPosition = null;
         LanderAppearance landerAppearance = null;
         LanderMovement landerMovement = null;
+        LanderFuel landerFuel = null;
+        Count count = null;
 
         for (var entity: entities.values()) {
 
@@ -41,11 +47,19 @@ public class Collision extends System {
                 landerPosition = entity.get(LanderPosition.class);
                 landerAppearance = entity.get(LanderAppearance.class);
                 landerMovement = entity.get(LanderMovement.class);
+                landerFuel = entity.get(LanderFuel.class);
+            } else if (entity.contains(Count.class)) {
+                count = entity.get(Count.class);
             }
 
-            if (terrainPoints != null && landerPosition != null && landerAppearance != null) {
+            if (terrainPoints != null && landerPosition != null && landerAppearance != null && landerFuel != null && count != null) {
                 if (hasIntersection(terrainPoints, landerPosition, landerAppearance)) {
-                    handleCollision(landerMovement);
+                    handleCollision(landerMovement, landerPosition, terrainPoints, landerAppearance, count, landerFuel);
+                }
+
+                // If moveable was turned off for a collision, restart it when the countdown is over
+                if (!landerMovement.isMoveable() && !count.getCountDown()) {
+                    landerMovement.startMoving();
                 }
             }
         }
@@ -104,7 +118,47 @@ public class Collision extends System {
         return (t1 >= 0 && t1 <= 1) || (t2 >= 0 && t2 <= 1);
     }
 
-    private void handleCollision(LanderMovement landerMovement) {
+    private void handleCollision(LanderMovement landerMovement, LanderPosition landerPosition,
+                                 TerrainPoints terrainPoints, LanderAppearance landerAppearance, Count count,
+                                 LanderFuel landerFuel) {
+
         landerMovement.stopMoving();
+
+        // Angle needs to be converted to degrees
+        final float angleDegrees = Float.parseFloat(String.format("%.2f", (Math.toDegrees(landerPosition.getAngle()) + 360) % 360));
+
+        // If safe landing, move to level 2 or give score if on level 2
+        if ((angleDegrees <= 5.00f || angleDegrees >= 355.00f) &&
+                landerPosition.getSpeed() <= 2.000f) {
+
+            // If on safe zone
+
+            if (terrainPoints.isLevel1()) {
+                terrainPoints.levelUp();
+
+                // Show countdown
+                count.setCountDown(true);
+
+                // Generate new terrain
+                terrainPoints.setNeedsGeneration(true);
+                terrainPoints.resetTerrain();
+
+                // Reset lander position
+                landerPosition.setAngle((float) Math.PI * (3.0f / 2.0f));
+                landerPosition.setCenter(new Vector2f(-0.2875f, -.4275f));
+                landerPosition.setX(-0.3f);
+                landerPosition.setY(-0.45f);
+                landerMovement.setVelocityY(0.0f);
+                landerMovement.setVelocityX(0.0f);
+
+
+                // Reset fuel
+                landerFuel.setFuel(20.00f);
+
+
+            } else {
+                // Say you are a winner and give score
+            }
+        }
     }
 }

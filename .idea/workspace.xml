@@ -5,10 +5,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="8858ee06-ea5c-4baa-8898-f17b08ca1729" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/src/ecs/components/Count.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/ecs/entities/Counter.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/ecs/systems/Countdown.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/core/GameModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/core/GameModel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ecs/components/LanderPosition.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ecs/components/LanderPosition.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ecs/components/TerrainPoints.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ecs/components/TerrainPoints.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/ecs/systems/Collision.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ecs/systems/Collision.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
