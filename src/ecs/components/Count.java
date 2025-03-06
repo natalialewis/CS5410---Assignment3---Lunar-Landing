@@ -6,7 +6,7 @@ public class Count extends Component {
 
     private boolean countDown;
     private float time;
-    private int count = 1;
+    private int count = 3;
     private final Font font;
 
     public Count(boolean count, Font font) {
@@ -40,9 +40,5 @@ public class Count extends Component {
 
     public Font getFont() {
         return this.font;
-    }
-
-    public void print(String text) {
-        System.out.println(text);
     }
 }

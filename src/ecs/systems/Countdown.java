@@ -25,10 +25,10 @@ public class Countdown extends System {
                 render(count.getCount(), count);
 
                 if (count.getTime() >= 1.00) {
-                    count.setCount(count.getCount() + 1);
+                    count.setCount(count.getCount() - 1);
                     count.setTime(0.00f);
 
-                    if (count.getCount() > 3) {
+                    if (count.getCount() < 1) {
                         count.setCountDown(false);
                         count.setCount(0);
                     }
