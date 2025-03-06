@@ -10,6 +10,8 @@ import edu.usu.graphics.Texture;
 import ecs.systems.*;
 import org.joml.Vector2f;
 
+import java.lang.System;
+
 import static org.lwjgl.glfw.GLFW.*;
 
 
@@ -18,6 +20,7 @@ public class GameModel {
     private ecs.systems.TerrainRenderer terrainRenderer;
     private ecs.systems.LanderRenderer landerRenderer;
     private ecs.systems.Movement movement;
+    private ecs.systems.Collision collision;
     private KeyboardInput inputKeyboard;
 
     public void initialize(Graphics2D graphics) {
@@ -32,14 +35,16 @@ public class GameModel {
         backgroundRenderer = new BackgroundRenderer(graphics);
         terrainRenderer = new TerrainRenderer(graphics);
         landerRenderer = new LanderRenderer(graphics);
-        movement = new Movement(graphics, inputKeyboard);
-
+        movement = new Movement(inputKeyboard);
+        collision = new Collision();
 
         // Initialize entities
         backgroundRenderer.add(Background.create(texBackground));
-        terrainRenderer.add(Terrain.create());
         initializeRocket(texRocket, fontHud);
-
+        // Separated out the creation because both of these systems need the same instance of terrain
+        Entity terrain = Terrain.create();
+        terrainRenderer.add(terrain);
+        collision.add(terrain);;
     }
 
     public void update(double elapsedTime) {
@@ -47,11 +52,7 @@ public class GameModel {
         terrainRenderer.update(elapsedTime);
         landerRenderer.update(elapsedTime);
         movement.update(elapsedTime);
-    }
-
-    private void findCenterOfRocket(float x, float y) {
-        // Compute the center of the rocket based on the fact that a rocket is 0.07f x 0.07f
-        Vector2f center = new Vector2f(x + 0.035f, y + 0.035f);
+        collision.update(elapsedTime);
     }
 
     private void initializeRocket(Texture texRocket, Font font) {
@@ -73,5 +74,6 @@ public class GameModel {
 
         landerRenderer.add(entity);
         movement.add(entity);
+        collision.add(entity);
     }
 }
