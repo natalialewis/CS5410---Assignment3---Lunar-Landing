@@ -5,8 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="8858ee06-ea5c-4baa-8898-f17b08ca1729" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/src/ecs/components/Count.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ecs/components/Count.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ecs/systems/Countdown.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ecs/systems/Countdown.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/views/ControlsView.java" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
