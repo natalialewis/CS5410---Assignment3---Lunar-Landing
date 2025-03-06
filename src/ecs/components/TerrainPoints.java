@@ -5,11 +5,12 @@ import org.joml.Vector3f;
 import java.util.ArrayList;
 
 public class TerrainPoints extends Component {
-    private final ArrayList<ArrayList<Float>> terrainPoints;
+    private ArrayList<ArrayList<Float>> terrainPoints;
     private ArrayList<ArrayList<Float>> terrainFinal;
-    private final ArrayList<ArrayList<Vector3f>> lines;
+    private ArrayList<ArrayList<Vector3f>> lines;
     private float surfaceRoughness = 1.0f;
     private boolean level1;
+    private boolean needsGeneration = true;
 
     public TerrainPoints() {
         this.terrainPoints = new ArrayList<>();
@@ -69,5 +70,19 @@ public class TerrainPoints extends Component {
 
     public ArrayList<ArrayList<Vector3f>> getLines() {
         return lines;
+    }
+
+    public void setNeedsGeneration(boolean needsGeneration) {
+        this.needsGeneration = needsGeneration;
+    }
+
+    public boolean getNeedsGeneration() {
+        return needsGeneration;
+    }
+
+    public void resetTerrain() {
+        terrainPoints = new ArrayList<>();
+        terrainFinal = new ArrayList<>();
+        lines = new ArrayList<>();
     }
 }
