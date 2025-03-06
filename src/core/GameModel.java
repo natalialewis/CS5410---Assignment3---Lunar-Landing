@@ -58,8 +58,8 @@ public class GameModel {
     private void initializeRocket(Texture texRocket, Font font) {
         float initialX = -0.3f;
         float initialY = -0.45f;
-        float initialAngle = (float) Math.PI * (0.0f / 2.0f);
-        Vector2f center = new Vector2f(initialX + 0.035f, initialY + 0.035f);
+        float initialAngle = (float) Math.PI * (3.0f / 2.0f);
+        Vector2f center = new Vector2f(initialX + 0.0125f, initialY + 0.0225f);
 
         float initialVelocityX = 0.0f;
         float initialVelocityY = 0.0f;
