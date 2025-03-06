@@ -24,7 +24,7 @@ public class Movement extends System {
     public Movement(KeyboardInput input) {
         super(ecs.components.LanderMovement.class, ecs.components.LanderPosition.class,
                 ecs.components.LanderAppearance.class);
-        
+
         this.input = input;
 
         input.registerCommand(GLFW_KEY_UP, false, (double elapsedTime) -> {
@@ -52,13 +52,16 @@ public class Movement extends System {
             fuel = entity.get(LanderFuel.class);
             appearance = entity.get(LanderAppearance.class);
 
-            glfwPollEvents();
-            input.update(elapsedTime);
+            // If the lander is moveable (hasn't crashed, hasn't landed, etc.)
+            if (movement.isMoveable()) {
+                glfwPollEvents();
+                input.update(elapsedTime);
 
-            // If the thrust was not updated, apply gravity
-            if (!thrustUpdated) {
-                // Apply gravity
-                updateGravity(movement, position, elapsedSec);
+                // If the thrust was not updated, apply gravity
+                if (!thrustUpdated) {
+                    // Apply gravity
+                    updateGravity(movement, position, elapsedSec);
+                }
             }
         }
 
