@@ -44,10 +44,21 @@ public class CreditsView extends GameStateView {
 
     @Override
     public void render(double elapsedTime) {
-        final String message = "*I* wrote this amazing game!";
-        final float height = 0.075f;
-        final float width = font.measureTextWidth(message, height);
+        final String[] credits = {
+                "    LWJGL 2D Framework:",
+                "        Professor Dean Mathias",
+                "        ",
+                "    Game Development:",
+                "        Natalia Lewis"
+        };
 
-        graphics.drawTextByHeight(font, message, 0.0f - width / 2, 0 - height / 2, height, Color.YELLOW);
+        float top = -0.2f;
+        float height = 0.075f;
+        final Color color = new Color(95/255f, 48/255f, 142/255f);
+
+        for (String credit: credits) {
+            graphics.drawTextByHeight(font, credit, -0.4f, top, height, color);
+            top += height;
+        }
     }
 }
