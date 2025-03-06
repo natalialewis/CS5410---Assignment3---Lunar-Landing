@@ -5,14 +5,12 @@ import ecs.components.LanderAppearance;
 import ecs.components.LanderFuel;
 import ecs.components.LanderMovement;
 import ecs.components.LanderPosition;
-import edu.usu.graphics.Graphics2D;
 import org.joml.Vector2f;
 
 import static org.lwjgl.glfw.GLFW.*;
 
 public class Movement extends System {
 
-//    Graphics2D graphics;
     KeyboardInput input;
     LanderMovement movement;
     LanderPosition position;
@@ -26,8 +24,7 @@ public class Movement extends System {
     public Movement(KeyboardInput input) {
         super(ecs.components.LanderMovement.class, ecs.components.LanderPosition.class,
                 ecs.components.LanderAppearance.class);
-
-//        this.graphics = graphics;
+        
         this.input = input;
 
         input.registerCommand(GLFW_KEY_UP, false, (double elapsedTime) -> {
@@ -76,29 +73,32 @@ public class Movement extends System {
     }
 
     private void updateThrust() {
-        thrustUpdated = true;
+        if (fuel.getFuel() > 0) {
+            thrustUpdated = true;
 
-        // Convert direction angle into a vector
-        float angle = position.getAngle() - ((float) Math.PI / 2.0f);
+            // Convert direction angle into a vector
+            float angle = position.getAngle() - ((float) Math.PI / 2.0f);
 
-        float directionX = (float) Math.cos(angle);
-        float directionY = (float) Math.sin(angle);
+            float directionX = (float) Math.cos(angle);
+            float directionY = (float) Math.sin(angle);
 
-        // Update velocity from thrust
-        movement.setVelocityX(movement.getVelocityX() + movement.getThrust() * elapsedSec * directionX);
-        movement.setVelocityY(movement.getVelocityY() + movement.getThrust() * elapsedSec * directionY);
+            // Update velocity from thrust
+            movement.setVelocityX(movement.getVelocityX() + movement.getThrust() * elapsedSec * directionX);
+            movement.setVelocityY(movement.getVelocityY() + movement.getThrust() * elapsedSec * directionY);
 
-        // Update the position of the lander
-        position.setX(position.getX() + movement.getVelocityX() * elapsedSec);
-        position.setY(position.getY() + movement.getVelocityY() * elapsedSec);
+            // Update the position of the lander
+            position.setX(position.getX() + movement.getVelocityX() * elapsedSec);
+            position.setY(position.getY() + movement.getVelocityY() * elapsedSec);
 
-        // Update the center of the lander
-        position.setCenter(new Vector2f(position.getX() + appearance.getWidth() / 2, position.getY() +
-                appearance.getHeight() / 2));
+            // Update the center of the lander
+            position.setCenter(new Vector2f(position.getX() + appearance.getWidth() / 2, position.getY() +
+                    appearance.getHeight() / 2));
 
-        // Update fuel
-        float newLevel = Float.parseFloat(String.format("%.2f",fuel.getFuel() - elapsedSec));
-        fuel.setFuel(newLevel);
+            // Update fuel
+            float newLevel = Float.parseFloat(String.format("%.2f",fuel.getFuel() - elapsedSec));
+            fuel.setFuel(newLevel);
+        }
+
     }
 
     private void updateGravity(LanderMovement movement, LanderPosition position, float elapsedSec) {
