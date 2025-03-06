@@ -1,9 +1,8 @@
 package ecs.systems;
 
 import ecs.components.*;
+import ecs.components.EndGame;
 import ecs.entities.Entity;
-import edu.usu.graphics.Color;
-import edu.usu.graphics.Graphics2D;
 import org.joml.Vector2f;
 import org.joml.Vector3f;
 
@@ -11,19 +10,16 @@ import java.util.ArrayList;
 
 public class Collision extends System {
 
-    private final Graphics2D graphics;
-
-    public Collision(Graphics2D graphics) {
+    public Collision() {
         super(ecs.components.Collision.class, TerrainPoints.class, LanderPosition.class,
-                LanderAppearance.class, LanderMovement.class);
-
-        this.graphics = graphics;
+                LanderAppearance.class, LanderMovement.class, EndGame.class);
     }
 
     @Override
     protected boolean isInterested(Entity entity) {
         return entity.contains(TerrainPoints.class)
                 || entity.contains((Count.class)) ||
+                entity.contains(EndGame.class) ||
                 entity.contains(LanderAppearance.class)
                         && entity.contains(LanderPosition.class)
                         && entity.contains(ecs.components.Collision.class
@@ -38,6 +34,8 @@ public class Collision extends System {
         LanderMovement landerMovement = null;
         LanderFuel landerFuel = null;
         Count count = null;
+        EndGame endGame = null;
+
 
         for (var entity: entities.values()) {
 
@@ -50,15 +48,19 @@ public class Collision extends System {
                 landerFuel = entity.get(LanderFuel.class);
             } else if (entity.contains(Count.class)) {
                 count = entity.get(Count.class);
+            } else if (entity.contains(EndGame.class)) {
+                endGame = entity.get(EndGame.class);
             }
 
-            if (terrainPoints != null && landerPosition != null && landerAppearance != null && landerFuel != null && count != null) {
+            if (terrainPoints != null && landerPosition != null && landerAppearance != null && landerFuel != null &&
+                    count != null && endGame != null) {
                 if (hasIntersection(terrainPoints, landerPosition, landerAppearance)) {
-                    handleCollision(landerMovement, landerPosition, terrainPoints, landerAppearance, count, landerFuel);
+                    handleCollision(landerMovement, landerPosition, terrainPoints, count, landerFuel,
+                            endGame);
                 }
 
                 // If moveable was turned off for a collision, restart it when the countdown is over
-                if (!landerMovement.isMoveable() && !count.getCountDown()) {
+                if (!landerMovement.isMoveable() && !count.getCountDown() && !terrainPoints.isLevel1() && !endGame.isEndGame()) {
                     landerMovement.startMoving();
                 }
             }
@@ -119,8 +121,7 @@ public class Collision extends System {
     }
 
     private void handleCollision(LanderMovement landerMovement, LanderPosition landerPosition,
-                                 TerrainPoints terrainPoints, LanderAppearance landerAppearance, Count count,
-                                 LanderFuel landerFuel) {
+                                 TerrainPoints terrainPoints, Count count, LanderFuel landerFuel, EndGame endGame) {
 
         landerMovement.stopMoving();
 
@@ -157,7 +158,14 @@ public class Collision extends System {
 
 
             } else {
-                // Say you are a winner and give score
+                // States that the rocket landed safely at the end of the game
+                endGame.setSafeLanding(true);
+                endGame.setEndGame(true);
+            }
+        } else {
+            // Stop the game if the rocket lands or crashes in level two
+            if (!terrainPoints.isLevel1()) {
+                endGame.setEndGame(true);
             }
         }
     }
