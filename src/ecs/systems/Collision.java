@@ -64,7 +64,7 @@ public class Collision extends System {
         }
     }
 
-    private boolean hasIntersection(TerrainPoints terrainPointsComponent, LanderPosition landerPosition,
+    private void hasIntersection(TerrainPoints terrainPointsComponent, LanderPosition landerPosition,
                                     LanderAppearance landerAppearance, LanderMovement landerMovement, LanderFuel landerFuel,
                                     Count count, EndGame endGame, TerrainPoints terrainPoints) {
         Vector2f rocketCenter = landerPosition.getCenter();
@@ -92,7 +92,6 @@ public class Collision extends System {
             }
 
         }
-        return false;
     }
 
     private boolean lineEllipseIntersection(Vector2f point1, Vector2f point2) {
