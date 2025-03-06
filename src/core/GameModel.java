@@ -1,16 +1,12 @@
 package core;
 
 import ecs.entities.*;
+import ecs.systems.EndGame;
 import edu.usu.graphics.Font;
 import edu.usu.graphics.Graphics2D;
 import edu.usu.graphics.Texture;
 import ecs.systems.*;
 import org.joml.Vector2f;
-
-import java.lang.System;
-
-import static org.lwjgl.glfw.GLFW.*;
-
 
 public class GameModel {
     private ecs.systems.BackgroundRenderer backgroundRenderer;
@@ -19,6 +15,7 @@ public class GameModel {
     private ecs.systems.Movement movement;
     private ecs.systems.Collision collision;
     private ecs.systems.Countdown countdown;
+    private ecs.systems.EndGame endGame;
     private KeyboardInput inputKeyboard;
 
     public void initialize(Graphics2D graphics) {
@@ -35,8 +32,9 @@ public class GameModel {
         terrainRenderer = new TerrainRenderer(graphics);
         landerRenderer = new LanderRenderer(graphics);
         movement = new Movement(inputKeyboard);
-        collision = new Collision(graphics);
+        collision = new Collision();
         countdown = new Countdown(graphics);
+        endGame = new EndGame(graphics);
 
 
         // Initialize entities
@@ -49,6 +47,9 @@ public class GameModel {
         Entity counter = Counter.create(false, fontCount);
         countdown.add(counter);
         collision.add(counter);
+        Entity endgame = ecs.entities.EndGame.create();
+        collision.add(endgame);
+        endGame.add(endgame);
     }
 
     public void update(double elapsedTime) {
@@ -58,6 +59,7 @@ public class GameModel {
         movement.update(elapsedTime);
         collision.update(elapsedTime);
         countdown.update(elapsedTime);
+        endGame.update(elapsedTime);
     }
 
     private void initializeRocket(Texture texRocket, Font font) {
