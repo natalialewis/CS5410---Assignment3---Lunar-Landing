@@ -38,14 +38,14 @@ public class LanderRenderer extends System {
             // Hud
             final float fuelLeft = fuel.getFuel();
             final float angleDegrees = Float.parseFloat(String.format("%.2f", (Math.toDegrees(landerPosition.getAngle()) + 360) % 360));
-            final float speed = Float.parseFloat(String.format("%.3f", movement.getVelocityY() * 50));
+            landerPosition.setSpeed(Float.parseFloat(String.format("%.3f", movement.getVelocityY() * 50)));
 
             final float HUD_Height = 0.028f;
             float left = 0.28f;
             float top = -0.4f;
 
             top = renderHUDItem(landerAppearance.getFont(), "fuel      :  " + fuelLeft + " s", left, top, HUD_Height, fuelLeft >= 0.00f ? Color.GREEN : Color.WHITE);
-            top = renderHUDItem(landerAppearance.getFont(), "speed  :  " + speed + " m/s", left, top, HUD_Height, speed <= 2.000f ? Color.GREEN : Color.WHITE);
+            top = renderHUDItem(landerAppearance.getFont(), "speed  :  " + landerPosition.getSpeed() + " m/s", left, top, HUD_Height, landerPosition.getSpeed() <= 2.000f ? Color.GREEN : Color.WHITE);
             renderHUDItem(landerAppearance.getFont(), "angle   :  " + angleDegrees + "°", left, top, HUD_Height, angleDegrees >= 355.00f || angleDegrees <= 5.00f ? Color.GREEN : Color.WHITE);
         }
     }
