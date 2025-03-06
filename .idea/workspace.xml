@@ -5,12 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="8858ee06-ea5c-4baa-8898-f17b08ca1729" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/ecs/components/Count.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/ecs/entities/Counter.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/ecs/systems/Countdown.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/core/GameModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/core/GameModel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ecs/systems/Collision.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ecs/systems/Collision.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ecs/systems/Countdown.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ecs/systems/Countdown.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -60,14 +58,14 @@
   </component>
   <component name="RunManager" selected="Application.LunarLander">
     <configuration name="Driver - Windows/Linux" type="Application" factoryName="Application">
-      <option name="MAIN_CLASS_NAME" value="core.GameStateDemo" />
+      <option name="MAIN_CLASS_NAME" value="core.LunarLander" />
       <module name="GameState - Menus" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
     <configuration name="Driver - macOS" type="Application" factoryName="Application">
-      <option name="MAIN_CLASS_NAME" value="core.GameStateDemo" />
+      <option name="MAIN_CLASS_NAME" value="core.LunarLander" />
       <module name="GameState - Menus" />
       <option name="VM_PARAMETERS" value="-XstartOnFirstThread" />
       <method v="2">
@@ -108,6 +106,11 @@
       <updated>1714403754133</updated>
     </task>
     <servers />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <ignored-roots>
+      <path value="$PROJECT_DIR$/../../.." />
+    </ignored-roots>
   </component>
   <component name="XDebuggerManager">
     <watches-manager>

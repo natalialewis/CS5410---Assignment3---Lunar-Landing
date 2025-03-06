@@ -39,7 +39,6 @@ public class Countdown extends System {
 
     public void render(int currCount, Count count) {
         float height = 0.175f;
-        final Color color = new Color(205/255f, 83/255f, 201/255f);
 
         graphics.drawTextByHeight(count.getFont(), String.valueOf(currCount), -0.05f, -0.3375f, height,
                 1.0f, Color.WHITE);
