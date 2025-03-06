@@ -1,9 +1,6 @@
 package core;
 
-import ecs.entities.Background;
-import ecs.entities.Entity;
-import ecs.entities.Lander;
-import ecs.entities.Terrain;
+import ecs.entities.*;
 import edu.usu.graphics.Font;
 import edu.usu.graphics.Graphics2D;
 import edu.usu.graphics.Texture;
@@ -21,12 +18,14 @@ public class GameModel {
     private ecs.systems.LanderRenderer landerRenderer;
     private ecs.systems.Movement movement;
     private ecs.systems.Collision collision;
+    private ecs.systems.Countdown countdown;
     private KeyboardInput inputKeyboard;
 
     public void initialize(Graphics2D graphics) {
         var texBackground = new Texture("resources/images/background.jpg");
         var texRocket = new Texture("resources/images/rocket.png");
         var fontHud = new Font("resources/fonts/Roboto-Regular.ttf", 20, false);
+        var fontCount = new Font("resources/fonts/Roboto-Regular.ttf", 100, false);
 
         // Initialize keyboard
         inputKeyboard = new KeyboardInput(graphics.getWindow());
@@ -36,7 +35,9 @@ public class GameModel {
         terrainRenderer = new TerrainRenderer(graphics);
         landerRenderer = new LanderRenderer(graphics);
         movement = new Movement(inputKeyboard);
-        collision = new Collision();
+        collision = new Collision(graphics);
+        countdown = new Countdown(graphics);
+
 
         // Initialize entities
         backgroundRenderer.add(Background.create(texBackground));
@@ -44,7 +45,10 @@ public class GameModel {
         // Separated out the creation because both of these systems need the same instance of terrain
         Entity terrain = Terrain.create();
         terrainRenderer.add(terrain);
-        collision.add(terrain);;
+        collision.add(terrain);
+        Entity counter = Counter.create(false, fontCount);
+        countdown.add(counter);
+        collision.add(counter);
     }
 
     public void update(double elapsedTime) {
@@ -53,6 +57,7 @@ public class GameModel {
         landerRenderer.update(elapsedTime);
         movement.update(elapsedTime);
         collision.update(elapsedTime);
+        countdown.update(elapsedTime);
     }
 
     private void initializeRocket(Texture texRocket, Font font) {
