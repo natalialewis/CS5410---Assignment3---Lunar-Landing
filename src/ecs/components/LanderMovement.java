@@ -2,16 +2,11 @@ package ecs.components;
 
 public class LanderMovement extends Component{
 
-    public enum Moves {
-        UP,
-        LEFT,
-        RIGHT
-    }
-
     private float velocityX;
     private float velocityY;
     private final float gravity;
     private final float thrust;
+    private boolean moveable = true;
 
     public LanderMovement(float velocityX, float velocityY, float gravity, float thrust) {
         this.velocityX = velocityX;
@@ -42,5 +37,17 @@ public class LanderMovement extends Component{
 
     public float getThrust() {
         return this.thrust;
+    }
+
+    public void stopMoving() {
+        this.moveable = false;
+    }
+
+    public void startMoving() {
+        this.moveable = true;
+    }
+
+    public boolean isMoveable() {
+        return this.moveable;
     }
 }
