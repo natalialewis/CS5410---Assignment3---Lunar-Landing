@@ -54,10 +54,7 @@ public class Collision extends System {
 
             if (terrainPoints != null && landerPosition != null && landerAppearance != null && landerFuel != null &&
                     count != null && endGame != null) {
-                if (hasIntersection(terrainPoints, landerPosition, landerAppearance)) {
-                    handleCollision(landerMovement, landerPosition, terrainPoints, count, landerFuel,
-                            endGame);
-                }
+                hasIntersection(terrainPoints, landerPosition, landerAppearance, landerMovement, landerFuel, count, endGame, terrainPoints);
 
                 // If moveable was turned off for a collision, restart it when the countdown is over
                 if (!landerMovement.isMoveable() && !count.getCountDown() && !terrainPoints.isLevel1() && !endGame.isEndGame()) {
@@ -68,7 +65,8 @@ public class Collision extends System {
     }
 
     private boolean hasIntersection(TerrainPoints terrainPointsComponent, LanderPosition landerPosition,
-                                    LanderAppearance landerAppearance) {
+                                    LanderAppearance landerAppearance, LanderMovement landerMovement, LanderFuel landerFuel,
+                                    Count count, EndGame endGame, TerrainPoints terrainPoints) {
         Vector2f rocketCenter = landerPosition.getCenter();
         float radiusX = landerAppearance.getWidth() / 2;
         float radiusY = landerAppearance.getHeight() / 2;
@@ -87,7 +85,10 @@ public class Collision extends System {
                     (point2.get(1) - rocketCenter.get(1)) / radiusY);
 
             if (lineEllipseIntersection(ellipsePoint2, ellipsePoint1)) {
-                return true;
+                boolean safeZone = point1.get(1) == point2.get(1);
+
+                handleCollision(safeZone, landerMovement, landerPosition, terrainPoints, count, landerFuel,
+                        endGame);
             }
 
         }
@@ -120,7 +121,7 @@ public class Collision extends System {
         return (t1 >= 0 && t1 <= 1) || (t2 >= 0 && t2 <= 1);
     }
 
-    private void handleCollision(LanderMovement landerMovement, LanderPosition landerPosition,
+    private void handleCollision(boolean safeZone, LanderMovement landerMovement, LanderPosition landerPosition,
                                  TerrainPoints terrainPoints, Count count, LanderFuel landerFuel, EndGame endGame) {
 
         landerMovement.stopMoving();
@@ -130,7 +131,7 @@ public class Collision extends System {
 
         // If safe landing, move to level 2 or give score if on level 2
         if ((angleDegrees <= 5.00f || angleDegrees >= 355.00f) &&
-                landerPosition.getSpeed() <= 2.000f) {
+                landerPosition.getSpeed() <= 2.000f && safeZone) {
 
             // If on safe zone
 
@@ -152,10 +153,8 @@ public class Collision extends System {
                 landerMovement.setVelocityY(0.0f);
                 landerMovement.setVelocityX(0.0f);
 
-
                 // Reset fuel
                 landerFuel.setFuel(20.00f);
-
 
             } else {
                 // States that the rocket landed safely at the end of the game
