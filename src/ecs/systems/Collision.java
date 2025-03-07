@@ -123,6 +123,10 @@ public class Collision extends System {
     private void handleCollision(boolean safeZone, LanderMovement landerMovement, LanderPosition landerPosition,
                                  TerrainPoints terrainPoints, Count count, LanderFuel landerFuel, EndGame endGame) {
 
+        if (count.getCountDown()) {
+            return;
+        }
+
         landerMovement.stopMoving();
 
         // Angle needs to be converted to degrees
@@ -133,7 +137,6 @@ public class Collision extends System {
                 landerPosition.getSpeed() <= 2.000f && safeZone) {
 
             // If on safe zone
-
             if (terrainPoints.isLevel1()) {
                 terrainPoints.levelUp();
 
