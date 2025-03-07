@@ -34,7 +34,7 @@ public class EndGame extends System {
         if (safeLanding) {
             return 30 + (fuelLeft * level);
         } else {
-            return 10 + (fuelLeft * level);
+            return 10 + (fuelLeft * level / 2);
         }
     }
 
