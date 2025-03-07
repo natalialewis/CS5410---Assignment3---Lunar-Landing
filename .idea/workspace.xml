@@ -5,21 +5,16 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="8858ee06-ea5c-4baa-8898-f17b08ca1729" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/resources/images/crash-orb.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/images/thrust-orb.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/core/MyRandom.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/ecs/components/ParticleEmitter.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/ecs/entities/Particle.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/ecs/entities/ParticleEmitters.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/core/GameModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/core/GameModel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/core/Particle.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ecs/components/ParticleInfo.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/core/ParticleSystem.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ecs/systems/ParticleSystem.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ecs/systems/EndGame.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ecs/systems/EndGame.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ExportToHTMLSettings">
+    <option name="OUTPUT_DIRECTORY" value="$PROJECT_DIR$/../Assignment3 - Natalia Lewis\exportToHTML" />
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -50,7 +45,7 @@
     "git-widget-placeholder": "master",
     "ignore.virus.scanning.warn.message": "true",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Users/talia/Downloads/Particles - Step 5 - Better Memory",
+    "last_opened_file_path": "C:/Users/talia/Downloads/Assignment3 - Natalia Lewis",
     "project.structure.last.edited": "Libraries",
     "project.structure.proportion": "0.15",
     "project.structure.side.proportion": "0.2",
@@ -62,8 +57,8 @@
       <recent name="C:\Users\talia\OneDrive\Documents\USU\Spring 2025\CS5410\Assignment3 - Natalia Lewis\resources" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
-      <recent name="C:\Users\talia\OneDrive\Documents\USU\Spring 2025\CS5410\Assignment3 - Natalia Lewis\resources" />
       <recent name="C:\Users\talia\OneDrive\Documents\USU\Spring 2025\CS5410\Assignment3 - Natalia Lewis\resources\images" />
+      <recent name="C:\Users\talia\OneDrive\Documents\USU\Spring 2025\CS5410\Assignment3 - Natalia Lewis\resources" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
       <recent name="core" />
