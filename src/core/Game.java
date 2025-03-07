@@ -24,7 +24,6 @@ public class Game {
                 put(GameStateEnum.MainMenu, new MainMenuView());
                 put(GameStateEnum.NewGame, new NewGameView());
                 put(GameStateEnum.HighScores, new HighScoresView());
-                put(GameStateEnum.Controls, new ControlsView());
                 put(GameStateEnum.Credits, new CreditsView());
             }
         };
