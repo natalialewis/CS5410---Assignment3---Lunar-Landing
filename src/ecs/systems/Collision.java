@@ -159,11 +159,20 @@ public class Collision extends System {
                 // States that the rocket landed safely at the end of the game
                 endGame.setSafeLanding(true);
                 endGame.setEndGame(true);
+                endGame.setFuelLeft(landerFuel.getFuel());
+                endGame.setLevel(2);
             }
         } else {
             // Stop the game if the rocket lands or crashes in level two
+            endGame.setEndGame(true);
+            endGame.setFuelLeft(landerFuel.getFuel());
+
+            // Set the level for scoring
+
             if (!terrainPoints.isLevel1()) {
-                endGame.setEndGame(true);
+                endGame.setLevel(2);
+            } else {
+                endGame.setLevel(1);
             }
         }
     }

@@ -1,11 +1,18 @@
 package ecs.components;
 
+import edu.usu.graphics.Font;
+
 public class EndGame extends Component{
     private boolean endGame = false;
     private boolean safeLanding;
     private float score = 0;
+    private float fuelLeft = 0;
+    private final Font font;
+    private int level;
 
-    public EndGame() {}
+    public EndGame(Font font) {
+        this.font = font;
+    }
 
     public boolean isEndGame() {
         return this.endGame;
@@ -29,5 +36,25 @@ public class EndGame extends Component{
 
     public void setSafeLanding(boolean safeLanding) {
         this.safeLanding = safeLanding;
+    }
+
+    public float getFuelLeft() {
+        return this.fuelLeft;
+    }
+
+    public void setFuelLeft(float fuelLeft) {
+        this.fuelLeft = fuelLeft;
+    }
+
+    public Font getFont() {
+        return this.font;
+    }
+
+    public int getLevel() {
+        return this.level;
+    }
+
+    public void setLevel(int level) {
+        this.level = level;
     }
 }

@@ -47,7 +47,7 @@ public class GameModel {
         Entity counter = Counter.create(false, fontCount);
         countdown.add(counter);
         collision.add(counter);
-        Entity endgame = ecs.entities.EndGame.create();
+        Entity endgame = ecs.entities.EndGame.create(fontCount);
         collision.add(endgame);
         endGame.add(endgame);
     }
