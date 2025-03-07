@@ -1,10 +1,9 @@
 package ecs.systems;
 
 import core.KeyboardInput;
-import ecs.components.LanderAppearance;
-import ecs.components.LanderFuel;
-import ecs.components.LanderMovement;
-import ecs.components.LanderPosition;
+import ecs.components.*;
+import ecs.components.EndGame;
+import ecs.entities.Entity;
 import org.joml.Vector2f;
 
 import static org.lwjgl.glfw.GLFW.*;
@@ -16,6 +15,8 @@ public class Movement extends System {
     LanderPosition position;
     LanderAppearance appearance;
     LanderFuel fuel;
+    Count count;
+    EndGame endGame;
     float elapsedSec;
     boolean thrustUpdated = false;
     float rotateSpeed = 1.5f;
@@ -23,7 +24,9 @@ public class Movement extends System {
 
     public Movement(KeyboardInput input) {
         super(ecs.components.LanderMovement.class, ecs.components.LanderPosition.class,
-                ecs.components.LanderAppearance.class);
+                ecs.components.LanderAppearance.class, ecs.components.Count.class, ecs.components.LanderFuel.class,
+                ecs.components.EndGame.class);
+
 
         this.input = input;
 
@@ -40,6 +43,16 @@ public class Movement extends System {
         });
     }
 
+    @Override
+    protected boolean isInterested(Entity entity) {
+        return (entity.contains(LanderMovement.class)
+                && entity.contains(LanderPosition.class)
+                && entity.contains(LanderAppearance.class)
+                && entity.contains(LanderFuel.class) ||
+                entity.contains(Count.class) ||
+                entity.contains(ecs.components.EndGame.class));
+    }
+
 
     @Override
     public void update(double elapsedTime) {
@@ -47,22 +60,39 @@ public class Movement extends System {
         elapsedSec = (float) elapsedTime;
 
         for (var entity : entities.values()) {
-            movement = entity.get(LanderMovement.class);
-            position = entity.get(LanderPosition.class);
-            fuel = entity.get(LanderFuel.class);
-            appearance = entity.get(LanderAppearance.class);
 
-            // If the lander is moveable (hasn't crashed, hasn't landed, etc.)
-            if (movement.isMoveable()) {
-                glfwPollEvents();
-                input.update(elapsedTime);
+            if (entity.contains(Count.class)) {
+                count = entity.get(Count.class);
+            } else if (entity.contains(ecs.components.EndGame.class)) {
+                endGame = entity.get(ecs.components.EndGame.class);
+            } else {
+                movement = entity.get(LanderMovement.class);
+                position = entity.get(LanderPosition.class);
+                fuel = entity.get(LanderFuel.class);
+                appearance = entity.get(LanderAppearance.class);
+            }
 
-                // If the thrust was not updated, apply gravity
-                if (!thrustUpdated) {
-                    // Apply gravity
-                    updateGravity(movement, position, elapsedSec);
+            if (count != null && movement != null && position != null && fuel != null && appearance != null) {
+
+                if (!count.getCountDown() && !movement.isMoveable() && !endGame.isEndGame()) {
+                    movement.startMoving();
+                }
+
+                if (entity.contains(LanderMovement.class) && !count.getCountDown()) {
+                    // If the lander is moveable (hasn't crashed, hasn't landed, etc.)
+                    if (movement.isMoveable()) {
+                        glfwPollEvents();
+                        input.update(elapsedTime);
+
+                        // If the thrust was not updated, apply gravity
+                        if (!thrustUpdated) {
+                            // Apply gravity
+                            updateGravity(movement, position, elapsedSec);
+                        }
+                    }
                 }
             }
+
         }
 
     }

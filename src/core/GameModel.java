@@ -44,12 +44,14 @@ public class GameModel {
         Entity terrain = Terrain.create();
         terrainRenderer.add(terrain);
         collision.add(terrain);
-        Entity counter = Counter.create(false, fontCount);
+        Entity counter = Counter.create(true, fontCount);
         countdown.add(counter);
         collision.add(counter);
+        movement.add(counter);
         Entity endgame = ecs.entities.EndGame.create(fontCount);
         collision.add(endgame);
         endGame.add(endgame);
+        movement.add(endgame);
     }
 
     public void update(double elapsedTime) {
