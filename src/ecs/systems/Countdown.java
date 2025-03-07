@@ -30,7 +30,7 @@ public class Countdown extends System {
 
                     if (count.getCount() < 1) {
                         count.setCountDown(false);
-                        count.setCount(0);
+                        count.setCount(3);
                     }
                 }
             }
