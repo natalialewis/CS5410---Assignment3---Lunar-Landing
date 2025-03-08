@@ -8,6 +8,7 @@ public class LanderAppearance extends Component {
     private final Font font;
     private final float width;
     private final float height;
+    private boolean showLander = true;
 
     public LanderAppearance(Texture image, Font font, float width, float height) {
         this.image = image;
@@ -30,5 +31,13 @@ public class LanderAppearance extends Component {
 
     public float getHeight() {
         return height;
+    }
+
+    public boolean isShowLander() {
+        return showLander;
+    }
+
+    public void setShowLander(boolean showLander) {
+        this.showLander = showLander;
     }
 }

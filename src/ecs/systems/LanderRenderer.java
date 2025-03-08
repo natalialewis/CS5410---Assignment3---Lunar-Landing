@@ -29,11 +29,14 @@ public class LanderRenderer extends System {
             LanderMovement movement = entity.get(LanderMovement.class);
             LanderFuel fuel = entity.get(LanderFuel.class);
 
-            // Rocket
-            Rectangle rocket = new Rectangle(landerPosition.getX(), landerPosition.getY(), landerAppearance.getWidth(),
-                    landerAppearance.getHeight(), 1.0f);
-            graphics.draw(entity.get(LanderAppearance.class).getImage(), rocket, landerPosition.getAngle(),
-                    landerPosition.getCenter(), Color.WHITE);
+
+            if (landerAppearance.isShowLander()) {
+                // Rocket
+                Rectangle rocket = new Rectangle(landerPosition.getX(), landerPosition.getY(), landerAppearance.getWidth(),
+                        landerAppearance.getHeight(), 1.0f);
+                graphics.draw(entity.get(LanderAppearance.class).getImage(), rocket, landerPosition.getAngle(),
+                        landerPosition.getCenter(), Color.WHITE);
+            }
 
             // Hud
             final float fuelLeft = fuel.getFuel();
