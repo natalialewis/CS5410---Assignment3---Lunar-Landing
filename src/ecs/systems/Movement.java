@@ -5,7 +5,9 @@ import ecs.components.*;
 import ecs.components.EndGame;
 import ecs.entities.Entity;
 import edu.usu.audio.Sound;
-import edu.usu.audio.SoundManager;
+import edu.usu.graphics.Color;
+import edu.usu.graphics.Graphics2D;
+import edu.usu.graphics.Rectangle;
 import org.joml.Vector2f;
 
 import static org.lwjgl.glfw.GLFW.*;
@@ -13,6 +15,8 @@ import static org.lwjgl.glfw.GLFW.*;
 public class Movement extends System {
 
     KeyboardInput input;
+    boolean paused = false;
+    Graphics2D graphics;
     Sound thrustSound;
     LanderMovement movement;
     LanderPosition position;
@@ -26,25 +30,36 @@ public class Movement extends System {
     float rotateSpeed = 1.5f;
 
 
-    public Movement(KeyboardInput input, Sound thrustSound) {
+    public Movement(Graphics2D graphics, KeyboardInput input, Sound thrustSound) {
         super(ecs.components.LanderMovement.class, ecs.components.LanderPosition.class,
                 ecs.components.LanderAppearance.class, ecs.components.Count.class, ecs.components.LanderFuel.class,
                 ecs.components.EndGame.class);
 
 
+        this.graphics = graphics;
         this.input = input;
         this.thrustSound = thrustSound;
 
         input.registerCommand(GLFW_KEY_UP, false, (double elapsedTime) -> {
-            updateThrust();
+            if (!paused) {
+                updateThrust();
+            }
         });
 
         input.registerCommand(GLFW_KEY_LEFT, false, (double elapsedTime) -> {
-            rotateLeft();
+            if (!paused) {
+                rotateLeft();
+            }
         });
 
         input.registerCommand(GLFW_KEY_RIGHT, false, (double elapsedTime) -> {
-            rotateRight();
+            if (!paused) {
+                rotateRight();
+            }
+        });
+
+        input.registerCommand(GLFW_KEY_ESCAPE, true, (double elapsedTime) -> {
+            paused = !paused;
         });
     }
 
@@ -65,6 +80,11 @@ public class Movement extends System {
         thrustUpdated = false;
         elapsedSec = (float) elapsedTime;
 
+        if (paused) {
+            glfwPollEvents();
+            input.update(elapsedTime);
+        }
+
         for (var entity : entities.values()) {
 
             if (entity.contains(Count.class)) {
@@ -83,31 +103,34 @@ public class Movement extends System {
             if (count != null && movement != null && position != null && fuel != null && appearance != null
                     && thrustParticleEmitter != null) {
 
-                if (!count.getCountDown() && !movement.isMoveable() && !endGame.isEndGame()) {
-                    movement.startMoving();
-                }
+                handlePause();
 
-                if (entity.contains(LanderMovement.class) && !count.getCountDown()) {
-                    // If the lander is moveable (hasn't crashed, hasn't landed, etc.)
-                    if (movement.isMoveable()) {
-                        glfwPollEvents();
-                        input.update(elapsedTime);
+                if (!paused) {
+                    if (!count.getCountDown() && !movement.isMoveable() && !endGame.isEndGame()) {
+                        movement.startMoving();
+                    }
 
-                        // If the thrust was not updated, apply gravity
-                        if (!thrustUpdated) {
-                            // Apply gravity
-                            updateGravity(movement, position, elapsedSec);
+                    if (entity.contains(LanderMovement.class) && !count.getCountDown()) {
+                        // If the lander is moveable (hasn't crashed, hasn't landed, etc.)
+                        if (movement.isMoveable()) {
 
-                            if (thrustSound.isPlaying()) {
-                                thrustSound.stop();
+                            glfwPollEvents();
+                            input.update(elapsedTime);
+
+                            // If the thrust was not updated, apply gravity
+                            if (!thrustUpdated) {
+                                // Apply gravity
+                                updateGravity(movement, position, elapsedSec);
+
+                                if (thrustSound.isPlaying()) {
+                                    thrustSound.stop();
+                                }
                             }
                         }
                     }
                 }
             }
-
         }
-
     }
 
     private void rotateLeft() {
@@ -169,5 +192,23 @@ public class Movement extends System {
         // Update the center of the lander
         position.setCenter(new Vector2f(position.getX() + appearance.getWidth() / 2, position.getY() +
                 appearance.getHeight() / 2));
+    }
+
+    private void handlePause() {
+
+        if (!endGame.isEndGame() && paused) {
+            // Render pause screen outline
+            Color color = new Color(205/255f, 83/255f, 201/255f);
+            Rectangle pauseScreenOutline = new Rectangle(-0.255f, -0.155f, 0.51f, 0.31f, 1.0f);
+            graphics.draw(pauseScreenOutline, color);
+
+            // Render pause screen
+            Rectangle pauseScreen = new Rectangle(-0.25f, -0.15f, 0.5f, 0.3f, 1.0f);
+            graphics.draw(pauseScreen, edu.usu.graphics.Color.BLACK);
+
+            // Render pause text
+            graphics.drawTextByHeight(endGame.getFont(), "ESC - Continue", -.11f, -0.06f, 0.04f, 1.0f, color);
+            graphics.drawTextByHeight(endGame.getFont(), "Q - Quit", -0.055f, 0.02f, 0.04f, 1.0f, color);
+        }
     }
 }

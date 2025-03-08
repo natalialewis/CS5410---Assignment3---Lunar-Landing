@@ -30,7 +30,7 @@ public class NewGameView extends GameStateView {
         inputKeyboard.registerCommand(GLFW_KEY_Q, true, (double elapsedTime) -> {
             nextGameState = GameStateEnum.MainMenu;
         });
-        
+
     }
 
     @Override
