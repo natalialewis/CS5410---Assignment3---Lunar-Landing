@@ -2,6 +2,8 @@ package core;
 
 import ecs.entities.*;
 import ecs.systems.EndGame;
+import edu.usu.audio.Sound;
+import edu.usu.audio.SoundManager;
 import edu.usu.graphics.Font;
 import edu.usu.graphics.Graphics2D;
 import edu.usu.graphics.Texture;
@@ -21,6 +23,10 @@ public class GameModel {
     private ecs.systems.EndGame endGame;
     private ecs.systems.ParticleSystem particleSystem;
     private KeyboardInput inputKeyboard;
+    private SoundManager audio;
+    private Sound crashEffect;
+    private Sound landEffect;
+    private Sound thrustEffect;
 
     public void initialize(Graphics2D graphics) {
         var texBackground = new Texture("resources/images/background.jpg");
@@ -30,6 +36,12 @@ public class GameModel {
         var texCrashOrb = new Texture("resources/images/crash-orb.png");
         var texThrustOrb = new Texture("resources/images/thrust-orb.png");
 
+        // Initialize audio
+        audio = new SoundManager();
+        crashEffect = audio.load("crash", "resources/audio/crash.ogg", false);
+        landEffect = audio.load("land", "resources/audio/land.ogg", false);
+        thrustEffect = audio.load("thrust", "resources/audio/thrust.ogg", false);
+
         // Initialize keyboard
         inputKeyboard = new KeyboardInput(graphics.getWindow());
 
@@ -37,8 +49,8 @@ public class GameModel {
         backgroundRenderer = new BackgroundRenderer(graphics);
         terrainRenderer = new TerrainRenderer(graphics);
         landerRenderer = new LanderRenderer(graphics);
-        movement = new Movement(inputKeyboard);
-        collision = new Collision();
+        movement = new Movement(inputKeyboard, thrustEffect);
+        collision = new Collision(crashEffect, landEffect, thrustEffect);
         countdown = new Countdown(graphics);
         endGame = new EndGame(graphics);
         particleSystem = new ParticleSystem(graphics, texCrashOrb, texThrustOrb);

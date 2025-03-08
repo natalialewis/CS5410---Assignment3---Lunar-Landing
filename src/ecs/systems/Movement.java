@@ -4,6 +4,8 @@ import core.KeyboardInput;
 import ecs.components.*;
 import ecs.components.EndGame;
 import ecs.entities.Entity;
+import edu.usu.audio.Sound;
+import edu.usu.audio.SoundManager;
 import org.joml.Vector2f;
 
 import static org.lwjgl.glfw.GLFW.*;
@@ -11,6 +13,7 @@ import static org.lwjgl.glfw.GLFW.*;
 public class Movement extends System {
 
     KeyboardInput input;
+    Sound thrustSound;
     LanderMovement movement;
     LanderPosition position;
     LanderAppearance appearance;
@@ -23,13 +26,14 @@ public class Movement extends System {
     float rotateSpeed = 1.5f;
 
 
-    public Movement(KeyboardInput input) {
+    public Movement(KeyboardInput input, Sound thrustSound) {
         super(ecs.components.LanderMovement.class, ecs.components.LanderPosition.class,
                 ecs.components.LanderAppearance.class, ecs.components.Count.class, ecs.components.LanderFuel.class,
                 ecs.components.EndGame.class);
 
 
         this.input = input;
+        this.thrustSound = thrustSound;
 
         input.registerCommand(GLFW_KEY_UP, false, (double elapsedTime) -> {
             updateThrust();
@@ -93,6 +97,10 @@ public class Movement extends System {
                         if (!thrustUpdated) {
                             // Apply gravity
                             updateGravity(movement, position, elapsedSec);
+
+                            if (thrustSound.isPlaying()) {
+                                thrustSound.stop();
+                            }
                         }
                     }
                 }
@@ -139,6 +147,11 @@ public class Movement extends System {
             float newLevel = Float.parseFloat(String.format("%.2f",fuel.getFuel() - elapsedSec));
             if (newLevel >= 0.0f) {
                 fuel.setFuel(Math.abs(newLevel));
+            }
+
+            // Play the thrust sounds
+            if (!thrustSound.isPlaying()) {
+                thrustSound.play();
             }
         }
 

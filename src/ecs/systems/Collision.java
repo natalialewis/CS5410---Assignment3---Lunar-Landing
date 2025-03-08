@@ -3,6 +3,7 @@ package ecs.systems;
 import ecs.components.*;
 import ecs.components.EndGame;
 import ecs.entities.Entity;
+import edu.usu.audio.Sound;
 import org.joml.Vector2f;
 import org.joml.Vector3f;
 
@@ -10,9 +11,18 @@ import java.util.ArrayList;
 
 public class Collision extends System {
 
-    public Collision() {
+    Sound crashSound;
+    Sound landSound;
+    Sound thrustSound;
+    private boolean collision = false;
+
+    public Collision(Sound crashSound, Sound landSound, Sound thrustSound) {
         super(ecs.components.Collision.class, TerrainPoints.class, LanderPosition.class,
                 LanderAppearance.class, LanderMovement.class, EndGame.class);
+
+        this.crashSound = crashSound;
+        this.landSound = landSound;
+        this.thrustSound = thrustSound;
     }
 
     @Override
@@ -58,7 +68,10 @@ public class Collision extends System {
 
             if (terrainPoints != null && landerPosition != null && landerAppearance != null && landerFuel != null &&
                     count != null && endGame != null && crashParticleEmitter != null) {
-                hasIntersection(terrainPoints, landerPosition, landerAppearance, landerMovement, landerFuel, count, endGame, terrainPoints, crashParticleEmitter);
+
+                if (!collision) {
+                    hasIntersection(terrainPoints, landerPosition, landerAppearance, landerMovement, landerFuel, count, endGame, terrainPoints, crashParticleEmitter);
+                }
 
                 // If moveable was turned off for a collision, restart it when the countdown is over
                 if (!landerMovement.isMoveable() && !count.getCountDown() && !terrainPoints.isLevel1() && !endGame.isEndGame()) {
@@ -144,6 +157,10 @@ public class Collision extends System {
             if (terrainPoints.isLevel1()) {
                 terrainPoints.levelUp();
 
+                // Play landing sound
+                thrustSound.stop();
+                landSound.play();
+
                 // Show countdown
                 count.setCountDown(true);
 
@@ -163,16 +180,28 @@ public class Collision extends System {
                 landerFuel.setFuel(20.00f);
 
             } else {
+                collision = true;
+
                 // States that the rocket landed safely at the end of the game
                 endGame.setSafeLanding(true);
                 endGame.setEndGame(true);
                 endGame.setFuelLeft(landerFuel.getFuel());
                 endGame.setLevel(2);
+
+                // Play landing sound
+                thrustSound.stop();
+                landSound.play();
             }
         } else {
+            collision = true;
+
             // Stop the game if the rocket crashes in level one or two
             endGame.setEndGame(true);
             endGame.setFuelLeft(landerFuel.getFuel());
+
+            // Play crash sound
+            thrustSound.stop();
+            crashSound.play();
 
             // Tell the crash particle emitter to start emitting particles
             ecs.systems.ParticleSystem.shipCrash(crashParticleEmitter, landerPosition.getCenter());

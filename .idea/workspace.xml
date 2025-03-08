@@ -6,8 +6,10 @@
   <component name="ChangeListManager">
     <list default="true" id="8858ee06-ea5c-4baa-8898-f17b08ca1729" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/audio/thrust.ogg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/core/GameModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/core/GameModel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ecs/systems/Collision.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ecs/systems/Collision.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/ecs/systems/Movement.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ecs/systems/Movement.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ecs/systems/ParticleSystem.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ecs/systems/ParticleSystem.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -21,6 +23,7 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Class" />
+        <option value="Python Script" />
       </list>
     </option>
   </component>
@@ -31,7 +34,9 @@
   &quot;associatedIndex&quot;: 0
 }</component>
   <component name="ProjectId" id="2fmQPlEJuzn0X51zViugy0Oatt2" />
-  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="1" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -46,7 +51,7 @@
     "git-widget-placeholder": "master",
     "ignore.virus.scanning.warn.message": "true",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Users/talia/OneDrive/Documents/USU/Spring 2025/CS5410/Assignment3 - Natalia Lewis/resources/images",
+    "last_opened_file_path": "C:/Users/talia/Downloads/Simple - Audio",
     "project.structure.last.edited": "Libraries",
     "project.structure.proportion": "0.15",
     "project.structure.side.proportion": "0.2",
@@ -59,8 +64,9 @@
       <recent name="C:\Users\talia\OneDrive\Documents\USU\Spring 2025\CS5410\Assignment3 - Natalia Lewis\resources" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
-      <recent name="C:\Users\talia\OneDrive\Documents\USU\Spring 2025\CS5410\Assignment3 - Natalia Lewis\resources\images" />
+      <recent name="C:\Users\talia\OneDrive\Documents\USU\Spring 2025\CS5410\Assignment3 - Natalia Lewis\resources\audio" />
       <recent name="C:\Users\talia\OneDrive\Documents\USU\Spring 2025\CS5410\Assignment3 - Natalia Lewis\resources" />
+      <recent name="C:\Users\talia\OneDrive\Documents\USU\Spring 2025\CS5410\Assignment3 - Natalia Lewis\resources\images" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
       <recent name="core" />
