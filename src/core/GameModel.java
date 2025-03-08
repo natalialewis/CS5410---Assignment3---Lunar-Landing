@@ -10,9 +10,6 @@ import edu.usu.graphics.Texture;
 import ecs.systems.*;
 import org.joml.Vector2f;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class GameModel {
     private ecs.systems.BackgroundRenderer backgroundRenderer;
     private ecs.systems.TerrainRenderer terrainRenderer;
@@ -49,7 +46,7 @@ public class GameModel {
         backgroundRenderer = new BackgroundRenderer(graphics);
         terrainRenderer = new TerrainRenderer(graphics);
         landerRenderer = new LanderRenderer(graphics);
-        movement = new Movement(inputKeyboard, thrustEffect);
+        movement = new Movement(graphics, inputKeyboard, thrustEffect);
         collision = new Collision(crashEffect, landEffect, thrustEffect);
         countdown = new Countdown(graphics);
         endGame = new EndGame(graphics);
