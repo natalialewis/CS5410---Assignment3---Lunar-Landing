@@ -54,7 +54,7 @@ public class CreditsView extends GameStateView {
 
         float top = -0.2f;
         float height = 0.075f;
-        final Color color = new Color(95/255f, 48/255f, 142/255f);
+        final Color color = new Color(205/255f, 83/255f, 201/255f);
 
         for (String credit: credits) {
             graphics.drawTextByHeight(font, credit, -0.4f, top, height, color);
