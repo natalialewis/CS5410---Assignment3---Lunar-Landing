@@ -1,7 +1,6 @@
 package ecs.systems;
 
 import core.MyRandom;
-import ecs.components.LanderAppearance;
 import ecs.components.ParticleEmitter;
 import ecs.components.ParticleInfo;
 import ecs.entities.Entity;
