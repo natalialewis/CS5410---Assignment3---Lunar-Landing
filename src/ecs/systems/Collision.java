@@ -175,8 +175,7 @@ public class Collision extends System {
             endGame.setFuelLeft(landerFuel.getFuel());
 
             // Tell the crash particle emitter to start emitting particles
-            crashParticleEmitter.center = landerPosition.getCenter();
-            crashParticleEmitter.crash = true;
+            ecs.systems.ParticleSystem.shipCrash(crashParticleEmitter, landerPosition.getCenter());
             landerAppearance.setShowLander(false);
 
             // Set the level for scoring
