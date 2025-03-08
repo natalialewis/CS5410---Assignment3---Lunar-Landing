@@ -11,7 +11,7 @@ public class ParticleEmitter extends Component{
     public float speedStdDev;
     public float lifetimeMean;
     public float lifetimeStdDev;
-    public boolean crash = true;
+    public boolean crash = false;
     public boolean thrust = false;
     public boolean spawnedParticles = false;
 
