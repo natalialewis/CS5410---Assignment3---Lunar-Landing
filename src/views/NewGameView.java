@@ -11,6 +11,7 @@ public class NewGameView extends GameStateView {
     private KeyboardInput inputKeyboard;
     private GameStateEnum nextGameState = GameStateEnum.NewGame;
     private GameModel gameModel;
+    private static boolean gameOver = false;
 
     @Override
     public void initialize(Graphics2D graphics) {
@@ -20,10 +21,16 @@ public class NewGameView extends GameStateView {
 
         // When ESC is pressed, set the appropriate new game state
         inputKeyboard.registerCommand(GLFW_KEY_ESCAPE, true, (double elapsedTime) -> {
-            nextGameState = GameStateEnum.MainMenu;
+            if (gameOver) {
+                nextGameState = GameStateEnum.MainMenu;
+            }
         });
 
-
+        // When Q is pressed, go to main menu
+        inputKeyboard.registerCommand(GLFW_KEY_Q, true, (double elapsedTime) -> {
+            nextGameState = GameStateEnum.MainMenu;
+        });
+        
     }
 
     @Override
@@ -48,5 +55,9 @@ public class NewGameView extends GameStateView {
     @Override
     public void render(double elapsedTime) {
         // Render is in the update of the game model to follow the ECS pattern
+    }
+
+    public static void makeGameOver() {
+        gameOver = true;
     }
 }
