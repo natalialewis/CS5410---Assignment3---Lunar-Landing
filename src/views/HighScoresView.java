@@ -1,9 +1,14 @@
 package views;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import core.KeyboardInput;
 import edu.usu.graphics.Color;
 import edu.usu.graphics.Font;
 import edu.usu.graphics.Graphics2D;
+
+import java.io.FileReader;
+import java.util.List;
 
 import static org.lwjgl.glfw.GLFW.*;
 
@@ -12,6 +17,7 @@ public class HighScoresView extends GameStateView {
     private KeyboardInput inputKeyboard;
     private GameStateEnum nextGameState = GameStateEnum.HighScores;
     private Font font;
+    private static List<String> highScores;
 
     @Override
     public void initialize(Graphics2D graphics) {
@@ -24,6 +30,8 @@ public class HighScoresView extends GameStateView {
         inputKeyboard.registerCommand(GLFW_KEY_ESCAPE, true, (double elapsedTime) -> {
             nextGameState = GameStateEnum.MainMenu;
         });
+
+        setHighScores();
     }
 
     @Override
@@ -40,14 +48,35 @@ public class HighScoresView extends GameStateView {
 
     @Override
     public void update(double elapsedTime) {
+        setHighScores();
     }
 
     @Override
     public void render(double elapsedTime) {
-        final String message = "These are the high scores";
-        final float height = 0.075f;
-        final float width = font.measureTextWidth(message, height);
+        final Color color = new Color(205/255f, 83/255f, 201/255f);
+        final String message = "High Scores:";
+        float height = 0.075f;
+        float width = font.measureTextWidth(message, height);
+        float top = -0.1925f;
 
-        graphics.drawTextByHeight(font, message, 0.0f - width / 2, 0 - height / 2, height, Color.YELLOW);
+        graphics.drawTextByHeight(font, message, 0.0f - width / 2, top, height, color);
+        height = 0.05f;
+        top += 0.03f;
+
+        for (String score: highScores) {
+            width = font.measureTextWidth(score, height);
+            top += height;
+            graphics.drawTextByHeight(font, score, 0.0f - width / 2, top, height, color);
+        }
+    }
+
+    public static void setHighScores() {
+        // Loads the high scores from the file
+        try (FileReader reader = new FileReader("highscores.json")) {
+            Gson gson = new Gson();
+            highScores = gson.fromJson(reader,new TypeToken<List<String>>(){}.getType());
+        } catch (Exception ex) {
+            java.lang.System.out.println("Error loading: " + ex.getMessage());
+        }
     }
 }

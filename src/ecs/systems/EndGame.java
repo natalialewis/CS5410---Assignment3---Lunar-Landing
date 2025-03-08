@@ -7,7 +7,6 @@ import edu.usu.graphics.Graphics2D;
 import com.google.gson.Gson;
 import java.io.FileWriter;
 import java.io.FileReader;
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.locks.Condition;
@@ -24,12 +23,13 @@ public class EndGame extends System implements Runnable {
 
     private boolean savedScore = false;
     private boolean done = false;
-    private final Lock lockSignal = new ReentrantLock();
-    private final Condition doSomething = lockSignal.newCondition();
-    private Activity doThis = Activity.Nothing;
+    private static final Lock lockSignal = new ReentrantLock();
+    private static final Condition doSomething = lockSignal.newCondition();
+    private static Activity doThis = Activity.Nothing;
     private final Thread tInternal;
     private final Graphics2D graphics;
     ecs.components.EndGame endGame;
+    List<String> highScores;
 
     public EndGame(Graphics2D graphics) {
         super(ecs.components.EndGame.class);
@@ -37,6 +37,7 @@ public class EndGame extends System implements Runnable {
         this.graphics = graphics;
         this.tInternal = new Thread(this);
         tInternal.start();
+
     }
 
     @Override
@@ -102,7 +103,7 @@ public class EndGame extends System implements Runnable {
     private synchronized void saveSomething() {
 
         // Loads existing high scores
-        List<String> highScores = loadHighScores();
+        loadHighScores();
 
         // Adds the new score
         highScores.add(String.format("%.0f", endGame.getScore()));
@@ -123,23 +124,14 @@ public class EndGame extends System implements Runnable {
         }
     }
 
-    private synchronized List<String> loadHighScores() {
-
-        // Existing high scores
-        List<String> highScores = new ArrayList<>();
-
-
+    private synchronized void loadHighScores() {
         // Loads the high scores from the file
         try (FileReader reader = new FileReader("highscores.json")) {
             Gson gson = new Gson();
             highScores = gson.fromJson(reader,new TypeToken<List<String>>(){}.getType());
-
-            return highScores;
         } catch (Exception ex) {
             java.lang.System.out.println("Error loading: " + ex.getMessage());
         }
-
-        return highScores;
     }
 
     public void shutdown() {
