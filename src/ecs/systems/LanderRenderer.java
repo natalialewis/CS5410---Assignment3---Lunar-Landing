@@ -8,7 +8,6 @@ import edu.usu.graphics.Color;
 import edu.usu.graphics.Font;
 import edu.usu.graphics.Graphics2D;
 import edu.usu.graphics.Rectangle;
-import views.MainMenuView;
 
 public class LanderRenderer extends System {
 
@@ -43,20 +42,18 @@ public class LanderRenderer extends System {
             final float angleDegrees = Float.parseFloat(String.format("%.2f", (Math.toDegrees(landerPosition.getAngle()) + 360) % 360));
             landerPosition.setSpeed(Float.parseFloat(String.format("%.3f", movement.getVelocityY() * 50)));
 
-            final float HUD_Height = 0.028f;
             float left = 0.28f;
             float top = -0.4f;
 
-            top = renderHUDItem(landerAppearance.getFont(), "fuel      :  " + fuelLeft + " s", left, top, HUD_Height, fuelLeft >= 0.00f ? Color.GREEN : Color.WHITE);
-            top = renderHUDItem(landerAppearance.getFont(), "speed  :  " + landerPosition.getSpeed() + " m/s", left, top, HUD_Height, landerPosition.getSpeed() <= 2.000f ? Color.GREEN : Color.WHITE);
-            renderHUDItem(landerAppearance.getFont(), "angle   :  " + angleDegrees + "°", left, top, HUD_Height, angleDegrees >= 355.00f || angleDegrees <= 5.00f ? Color.GREEN : Color.WHITE);
+            top = renderHUDItem(landerAppearance.getFont(), "fuel      :  " + fuelLeft + " s", left, top, fuelLeft >= 0.00f ? Color.GREEN : Color.WHITE);
+            top = renderHUDItem(landerAppearance.getFont(), "speed  :  " + landerPosition.getSpeed() + " m/s", left, top, landerPosition.getSpeed() <= 2.000f ? Color.GREEN : Color.WHITE);
+            renderHUDItem(landerAppearance.getFont(), "angle   :  " + angleDegrees + "°", left, top, angleDegrees >= 355.00f || angleDegrees <= 5.00f ? Color.GREEN : Color.WHITE);
         }
     }
 
-    private float renderHUDItem(Font font, String text, float left, float top, float height, Color color) {
-        float width = font.measureTextWidth(text, height);
-        graphics.drawTextByHeight(font, text, left, top, height, 1.0f, color);
+    private float renderHUDItem(Font font, String text, float left, float top, Color color) {
+        graphics.drawTextByHeight(font, text, left, top, (float) 0.028, 1.0f, color);
 
-        return top + height;
+        return top + (float) 0.028;
     }
 }
