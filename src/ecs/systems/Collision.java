@@ -20,6 +20,7 @@ public class Collision extends System {
         return entity.contains(TerrainPoints.class)
                 || entity.contains((Count.class)) ||
                 entity.contains(EndGame.class) ||
+                entity.contains(ParticleEmitter.class) ||
                 entity.contains(LanderAppearance.class)
                         && entity.contains(LanderPosition.class)
                         && entity.contains(ecs.components.Collision.class
@@ -35,6 +36,7 @@ public class Collision extends System {
         LanderFuel landerFuel = null;
         Count count = null;
         EndGame endGame = null;
+        ParticleEmitter particleEmitter = null;
 
 
         for (var entity: entities.values()) {
@@ -50,11 +52,13 @@ public class Collision extends System {
                 count = entity.get(Count.class);
             } else if (entity.contains(EndGame.class)) {
                 endGame = entity.get(EndGame.class);
+            } else if (entity.contains(ParticleEmitter.class)) {
+                particleEmitter = entity.get(ParticleEmitter.class);
             }
 
             if (terrainPoints != null && landerPosition != null && landerAppearance != null && landerFuel != null &&
-                    count != null && endGame != null) {
-                hasIntersection(terrainPoints, landerPosition, landerAppearance, landerMovement, landerFuel, count, endGame, terrainPoints);
+                    count != null && endGame != null && particleEmitter != null) {
+                hasIntersection(terrainPoints, landerPosition, landerAppearance, landerMovement, landerFuel, count, endGame, terrainPoints, particleEmitter);
 
                 // If moveable was turned off for a collision, restart it when the countdown is over
                 if (!landerMovement.isMoveable() && !count.getCountDown() && !terrainPoints.isLevel1() && !endGame.isEndGame()) {
@@ -66,7 +70,7 @@ public class Collision extends System {
 
     private void hasIntersection(TerrainPoints terrainPointsComponent, LanderPosition landerPosition,
                                     LanderAppearance landerAppearance, LanderMovement landerMovement, LanderFuel landerFuel,
-                                    Count count, EndGame endGame, TerrainPoints terrainPoints) {
+                                    Count count, EndGame endGame, TerrainPoints terrainPoints, ParticleEmitter particleEmitter) {
         Vector2f rocketCenter = landerPosition.getCenter();
         float radiusX = landerAppearance.getWidth() / 2;
         float radiusY = landerAppearance.getHeight() / 2;
@@ -88,7 +92,7 @@ public class Collision extends System {
                 boolean safeZone = point1.get(1) == point2.get(1);
 
                 handleCollision(safeZone, landerMovement, landerPosition, terrainPoints, count, landerFuel,
-                        endGame);
+                        endGame, particleEmitter, landerAppearance);
             }
 
         }
@@ -121,7 +125,7 @@ public class Collision extends System {
     }
 
     private void handleCollision(boolean safeZone, LanderMovement landerMovement, LanderPosition landerPosition,
-                                 TerrainPoints terrainPoints, Count count, LanderFuel landerFuel, EndGame endGame) {
+                                 TerrainPoints terrainPoints, Count count, LanderFuel landerFuel, EndGame endGame, ParticleEmitter particleEmitter, LanderAppearance landerAppearance) {
 
         if (count.getCountDown()) {
             return;
@@ -166,17 +170,22 @@ public class Collision extends System {
                 endGame.setLevel(2);
             }
         } else {
-            // Stop the game if the rocket lands or crashes in level two
+            // Stop the game if the rocket crashes in level one or two
             endGame.setEndGame(true);
             endGame.setFuelLeft(landerFuel.getFuel());
 
             // Set the level for scoring
-
             if (!terrainPoints.isLevel1()) {
                 endGame.setLevel(2);
             } else {
                 endGame.setLevel(1);
             }
+
+            // Tell the particle emitter to start emitting particles
+            particleEmitter.center = landerPosition.getCenter();
+            particleEmitter.crash = true;
+            landerAppearance.setShowLander(false);
+
         }
     }
 }
