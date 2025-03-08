@@ -90,6 +90,11 @@ public class ParticleSystem extends System{
 
                     graphics.draw(texCrashOrb, particle.area, particle.rotation, particle.center, Color.WHITE);
                 }
+
+                // Checks if all particles have been removed to turn off emitter
+                if (particles.isEmpty()) {
+                    emitter.crash = false;
+                }
             }
         }
     }
