@@ -38,6 +38,7 @@ public class Game {
     }
 
     public void shutdown() {
+        ecs.systems.EndGame.shutdown();
     }
 
     public void run() {

@@ -22,11 +22,11 @@ public class EndGame extends System implements Runnable {
     }
 
     private boolean savedScore = false;
-    private boolean done = false;
+    private static boolean done = false;
     private static final Lock lockSignal = new ReentrantLock();
     private static final Condition doSomething = lockSignal.newCondition();
     private static Activity doThis = Activity.Nothing;
-    private final Thread tInternal;
+    private static Thread tInternal = null;
     private final Graphics2D graphics;
     ecs.components.EndGame endGame;
     List<String> highScores;
@@ -134,7 +134,7 @@ public class EndGame extends System implements Runnable {
         }
     }
 
-    public void shutdown() {
+    public static void shutdown() {
         try {
             lockSignal.lock();
 
