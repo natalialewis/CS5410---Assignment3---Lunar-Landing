@@ -17,6 +17,7 @@ public class Movement extends System {
     LanderFuel fuel;
     Count count;
     EndGame endGame;
+    ParticleEmitter thrustParticleEmitter;
     float elapsedSec;
     boolean thrustUpdated = false;
     float rotateSpeed = 1.5f;
@@ -50,6 +51,7 @@ public class Movement extends System {
                 && entity.contains(LanderAppearance.class)
                 && entity.contains(LanderFuel.class) ||
                 entity.contains(Count.class) ||
+                entity.contains(ParticleEmitter.class) ||
                 entity.contains(ecs.components.EndGame.class));
     }
 
@@ -65,14 +67,17 @@ public class Movement extends System {
                 count = entity.get(Count.class);
             } else if (entity.contains(ecs.components.EndGame.class)) {
                 endGame = entity.get(ecs.components.EndGame.class);
-            } else {
+            } else if (entity.contains(ParticleEmitter.class)) {
+                thrustParticleEmitter = entity.get(ParticleEmitter.class);
+            }else {
                 movement = entity.get(LanderMovement.class);
                 position = entity.get(LanderPosition.class);
                 fuel = entity.get(LanderFuel.class);
                 appearance = entity.get(LanderAppearance.class);
             }
 
-            if (count != null && movement != null && position != null && fuel != null && appearance != null) {
+            if (count != null && movement != null && position != null && fuel != null && appearance != null
+                    && thrustParticleEmitter != null) {
 
                 if (!count.getCountDown() && !movement.isMoveable() && !endGame.isEndGame()) {
                     movement.startMoving();
@@ -109,6 +114,12 @@ public class Movement extends System {
         if (fuel.getFuel() > 0) {
             thrustUpdated = true;
 
+            // Start the particle emitter
+            thrustParticleEmitter.center = position.getCenter();
+            thrustParticleEmitter.thrust = true;
+            thrustParticleEmitter.angle = position.getAngle();
+            thrustParticleEmitter.spawnedThrustParticles = false;
+
             // Convert direction angle into a vector
             float angle = position.getAngle() - ((float) Math.PI / 2.0f);
 
@@ -129,7 +140,9 @@ public class Movement extends System {
 
             // Update fuel
             float newLevel = Float.parseFloat(String.format("%.2f",fuel.getFuel() - elapsedSec));
-            fuel.setFuel(newLevel);
+            if (newLevel >= 0.0f) {
+                fuel.setFuel(Math.abs(newLevel));
+            }
         }
 
     }

@@ -16,7 +16,8 @@ import java.util.List;
 
 public class ParticleSystem extends System{
 
-    private final HashMap<Long, Entity> particles = new HashMap<>();
+    private final HashMap<Long, Entity> crashParticles = new HashMap<>();
+    private final HashMap<Long, Entity> thrustParticles = new HashMap<>();
     private final MyRandom random = new MyRandom();
     private final Graphics2D graphics;
     private final Texture texCrashOrb;
@@ -40,8 +41,8 @@ public class ParticleSystem extends System{
             if (emitter.crash) {
 
                 // If the crash particles haven't been spawned yet
-                if (!emitter.spawnedParticles) {
-                    emitter.spawnedParticles = true;
+                if (!emitter.spawnedCrashParticles) {
+                    emitter.spawnedCrashParticles = true;
 
                     // Generates some new particles
                     for (int i = 0; i < 300; i++) {
@@ -64,13 +65,13 @@ public class ParticleSystem extends System{
                         ParticleInfo particleInfo = particle.get(ecs.components.ParticleInfo.class);
 
                         // Puts entity in the list with its name
-                        particles.put(particleInfo.name, particle);
+                        crashParticles.put(particleInfo.name, particle);
                     }
                 }
 
                 // Updates existing particles that need to be removed
                 List<Long> removeMe = new ArrayList<>();
-                for (Entity p : particles.values()) {
+                for (Entity p : crashParticles.values()) {
                     ParticleInfo particle = p.get(ecs.components.ParticleInfo.class);
 
                     // If the particle isn't alive anymore, add to the removeMe list
@@ -81,19 +82,84 @@ public class ParticleSystem extends System{
 
                 // Removes dead particles
                 for (Long key : removeMe) {
-                    particles.remove(key);
+                    crashParticles.remove(key);
                 }
 
                 // Renders particles
-                for (Entity p : particles.values()) {
+                for (Entity p : crashParticles.values()) {
                     ParticleInfo particle = p.get(ecs.components.ParticleInfo.class);
 
                     graphics.draw(texCrashOrb, particle.area, particle.rotation, particle.center, Color.WHITE);
                 }
 
                 // Checks if all particles have been removed to turn off emitter
-                if (particles.isEmpty()) {
+                if (crashParticles.isEmpty()) {
                     emitter.crash = false;
+                }
+            }
+
+            // If the player is using thrust
+            if (emitter.thrust) {
+
+                // If the thrust particles haven't been spawned yet
+                if (!emitter.spawnedThrustParticles) {
+                    emitter.spawnedThrustParticles = true;
+
+                    // Angle opposite of the rocket that the particles need to go in
+                    float baseAngle = emitter.angle + (float) Math.PI / 2;
+                    float coneWidth = (float) Math.PI / 9;
+
+                    // Generates some new particles
+                    for (int i = 0; i < 5; i++) {
+                        float size = (float) this.random.nextGaussian(emitter.sizeMean, emitter.sizeStdDev);
+
+                        // Creates a new entity
+                        var particle = Particle.create(
+                                // Center of the particle
+                                new Vector2f(emitter.center.x, emitter.center.y),
+                                // Direction of the particle
+                                this.random.nextConeVector(baseAngle, coneWidth),
+                                // Speed of the particle
+                                (float) this.random.nextGaussian(emitter.speedMean, emitter.speedStdDev),
+                                // Size of the particle
+                                new Vector2f(size, size),
+                                // Lifetime of the particle
+                                this.random.nextGaussian(emitter.lifetimeMean, emitter.lifetimeStdDev));
+
+                        // Gets the component for the new entity
+                        ParticleInfo particleInfo = particle.get(ecs.components.ParticleInfo.class);
+
+                        // Puts entity in the list with its name
+                        thrustParticles.put(particleInfo.name, particle);
+                    }
+                }
+
+                // Updates existing particles that need to be removed
+                List<Long> removeMe = new ArrayList<>();
+                for (Entity p : thrustParticles.values()) {
+                    ParticleInfo particle = p.get(ecs.components.ParticleInfo.class);
+
+                    // If the particle isn't alive anymore, add to the removeMe list
+                    if (!particleUpdate(elapsedTime, particle)) {
+                        removeMe.add(particle.name);
+                    }
+                }
+
+                // Removes dead particles
+                for (Long key : removeMe) {
+                    thrustParticles.remove(key);
+                }
+
+                // Renders particles
+                for (Entity p : thrustParticles.values()) {
+                    ParticleInfo particle = p.get(ecs.components.ParticleInfo.class);
+
+                    graphics.draw(texThrustOrb, particle.area, particle.rotation, particle.center, Color.WHITE);
+                }
+
+                // Checks if all particles have been removed to turn off emitter
+                if (thrustParticles.isEmpty()) {
+                    emitter.thrust = false;
                 }
             }
         }

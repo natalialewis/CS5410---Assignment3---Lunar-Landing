@@ -31,6 +31,15 @@ public class MyRandom extends Random {
         return new Vector2f(x, y);
     }
 
+    public Vector2f nextConeVector(float baseAngle, float coneWidth) {
+        float halfCone = coneWidth / 2;
+        float randomOffset = nextRange(-halfCone, halfCone);
+        float angle = baseAngle + randomOffset;
+        float x = (float) Math.cos(angle);
+        float y = (float) Math.sin(angle);
+        return new Vector2f(x, y);
+    }
+
     /// <summary>
     /// Generate a normally distributed random number.  Derived from a Wiki reference on
     /// how to do this.

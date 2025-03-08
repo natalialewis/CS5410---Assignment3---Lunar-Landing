@@ -5,12 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="8858ee06-ea5c-4baa-8898-f17b08ca1729" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/resources/images/1.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/images/23232.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/images/crash-orb.png" beforeDir="false" afterPath="$PROJECT_DIR$/resources/images/crash-orb.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/core/GameModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/core/GameModel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ecs/components/ParticleEmitter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ecs/components/ParticleEmitter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/core/MyRandom.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/core/MyRandom.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ecs/systems/Movement.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ecs/systems/Movement.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/ecs/systems/ParticleSystem.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ecs/systems/ParticleSystem.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
