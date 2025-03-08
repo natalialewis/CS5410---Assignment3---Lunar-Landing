@@ -13,7 +13,9 @@ public class ParticleEmitter extends Component{
     public float lifetimeStdDev;
     public boolean crash = false;
     public boolean thrust = false;
-    public boolean spawnedParticles = false;
+    public boolean spawnedCrashParticles = false;
+    public boolean spawnedThrustParticles = false;
+    public float angle;
 
     public ParticleEmitter(Vector2f center, float sizeMean, float sizeStdDev, float speedMean, float speedStdDev, float lifetimeMean, float lifetimeStdDev) {
         this.center = center;
