@@ -185,6 +185,7 @@ public class Collision extends System {
                 // States that the rocket landed safely at the end of the game
                 endGame.setSafeLanding(true);
                 endGame.setEndGame(true);
+                views.NewGameView.makeGameOver();
                 endGame.setFuelLeft(landerFuel.getFuel());
                 endGame.setLevel(2);
 
@@ -197,6 +198,7 @@ public class Collision extends System {
 
             // Stop the game if the rocket crashes in level one or two
             endGame.setEndGame(true);
+            views.NewGameView.makeGameOver();
             endGame.setFuelLeft(landerFuel.getFuel());
 
             // Play crash sound
