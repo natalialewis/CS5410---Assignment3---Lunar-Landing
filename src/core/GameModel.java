@@ -21,9 +21,6 @@ public class GameModel {
     private ecs.systems.EndGame endGame;
     private ecs.systems.ParticleSystem particleSystem;
     private KeyboardInput inputKeyboard;
-    private final List<Entity> removeThese = new ArrayList<>();
-    private final List<Entity> addThese = new ArrayList<>();
-    private final MyRandom random = new MyRandom();
 
     public void initialize(Graphics2D graphics) {
         var texBackground = new Texture("resources/images/background.jpg");
@@ -61,8 +58,12 @@ public class GameModel {
         collision.add(endgame);
         endGame.add(endgame);
         movement.add(endgame);
-        Entity particle = createParticleEmitter();
+        Entity particle = createCrashParticleEmitter();
         particleSystem.add(particle);
+        collision.add(particle);
+        Entity thrustParticle = createThrustParticleEmitter();
+        particleSystem.add(thrustParticle);
+        movement.add(thrustParticle);
     }
 
     public void update(double elapsedTime) {
@@ -76,12 +77,20 @@ public class GameModel {
         particleSystem.update(elapsedTime);
     }
 
-    private Entity createParticleEmitter() {
+    private Entity createCrashParticleEmitter() {
         return ParticleEmitters.create(
                 new Vector2f(0, 0),
                 0.008f, 0.002f,
                 0.05f, 0.01f,
                 2.5f, 0.1f);
+    }
+
+    private Entity createThrustParticleEmitter() {
+        return ParticleEmitters.create(
+                new Vector2f(0, 0),
+                0.003f, 0.001f,
+                0.1f, 0.02f,
+                0.8f, 0.05f);
     }
 
     private void initializeRocket(Texture texRocket, Font font) {
