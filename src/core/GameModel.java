@@ -46,12 +46,6 @@ public class GameModel {
         endGame = new EndGame(graphics);
         particleSystem = new ParticleSystem(graphics, texCrashOrb, texThrustOrb);
 
-//        particleSystem = new ParticleSystem((Entity entity) -> {
-//            removeThese.add(entity);
-//            addThese.add(createParticle());
-//        });
-
-
         // Initialize entities
         backgroundRenderer.add(Background.create(texBackground));
         initializeRocket(texRocket, fontHud);
@@ -67,8 +61,7 @@ public class GameModel {
         collision.add(endgame);
         endGame.add(endgame);
         movement.add(endgame);
-
-        Entity particle = createParticle();
+        Entity particle = createParticleEmitter();
         particleSystem.add(particle);
     }
 
@@ -80,37 +73,15 @@ public class GameModel {
         collision.update(elapsedTime);
         countdown.update(elapsedTime);
         endGame.update(elapsedTime);
-
-//        // Manages the particles
-//        for (var entity : removeThese) {
-//            particleSystem.remove(entity.getId());
-//        }
-//        removeThese.clear();
-//
-//        for (var entity : addThese) {
-//            particleSystem.add(entity);
-//        }
-//        addThese.clear();
+        particleSystem.update(elapsedTime);
     }
 
-//    private Entity createParticle() {
-//        float size = (float) this.random.nextGaussian(this.sizeMean, this.sizeStdDev);
-//        var p = new Particle(
-//                new Vector2f(this.center.x, this.center.y),
-//                this.random.nextCircleVector(),
-//                (float) this.random.nextGaussian(this.speedMean, this.speedStdDev),
-//                new Vector2f(size, size),
-//                this.random.nextGaussian(this.lifetimeMean, this.lifetimeStdDev));
-//
-//        return p;
-//    }
-
-    private Entity createParticle() {
+    private Entity createParticleEmitter() {
         return ParticleEmitters.create(
                 new Vector2f(0, 0),
-                0.015f, 0.004f,
-                0.07f, 0.05f,
-                3, 1);
+                0.008f, 0.002f,
+                0.05f, 0.01f,
+                2.5f, 0.1f);
     }
 
     private void initializeRocket(Texture texRocket, Font font) {
