@@ -36,7 +36,7 @@ public class Collision extends System {
         LanderFuel landerFuel = null;
         Count count = null;
         EndGame endGame = null;
-        ParticleEmitter particleEmitter = null;
+        ParticleEmitter crashParticleEmitter = null;
 
 
         for (var entity: entities.values()) {
@@ -53,12 +53,12 @@ public class Collision extends System {
             } else if (entity.contains(EndGame.class)) {
                 endGame = entity.get(EndGame.class);
             } else if (entity.contains(ParticleEmitter.class)) {
-                particleEmitter = entity.get(ParticleEmitter.class);
+                crashParticleEmitter = entity.get(ParticleEmitter.class);
             }
 
             if (terrainPoints != null && landerPosition != null && landerAppearance != null && landerFuel != null &&
-                    count != null && endGame != null && particleEmitter != null) {
-                hasIntersection(terrainPoints, landerPosition, landerAppearance, landerMovement, landerFuel, count, endGame, terrainPoints, particleEmitter);
+                    count != null && endGame != null && crashParticleEmitter != null) {
+                hasIntersection(terrainPoints, landerPosition, landerAppearance, landerMovement, landerFuel, count, endGame, terrainPoints, crashParticleEmitter);
 
                 // If moveable was turned off for a collision, restart it when the countdown is over
                 if (!landerMovement.isMoveable() && !count.getCountDown() && !terrainPoints.isLevel1() && !endGame.isEndGame()) {
@@ -70,7 +70,7 @@ public class Collision extends System {
 
     private void hasIntersection(TerrainPoints terrainPointsComponent, LanderPosition landerPosition,
                                     LanderAppearance landerAppearance, LanderMovement landerMovement, LanderFuel landerFuel,
-                                    Count count, EndGame endGame, TerrainPoints terrainPoints, ParticleEmitter particleEmitter) {
+                                    Count count, EndGame endGame, TerrainPoints terrainPoints, ParticleEmitter crashParticleEmitter) {
         Vector2f rocketCenter = landerPosition.getCenter();
         float radiusX = landerAppearance.getWidth() / 2;
         float radiusY = landerAppearance.getHeight() / 2;
@@ -92,7 +92,7 @@ public class Collision extends System {
                 boolean safeZone = point1.get(1) == point2.get(1);
 
                 handleCollision(safeZone, landerMovement, landerPosition, terrainPoints, count, landerFuel,
-                        endGame, particleEmitter, landerAppearance);
+                        endGame, crashParticleEmitter, landerAppearance);
             }
 
         }
@@ -125,7 +125,7 @@ public class Collision extends System {
     }
 
     private void handleCollision(boolean safeZone, LanderMovement landerMovement, LanderPosition landerPosition,
-                                 TerrainPoints terrainPoints, Count count, LanderFuel landerFuel, EndGame endGame, ParticleEmitter particleEmitter, LanderAppearance landerAppearance) {
+                                 TerrainPoints terrainPoints, Count count, LanderFuel landerFuel, EndGame endGame, ParticleEmitter crashParticleEmitter, LanderAppearance landerAppearance) {
 
         if (count.getCountDown()) {
             return;
@@ -174,18 +174,17 @@ public class Collision extends System {
             endGame.setEndGame(true);
             endGame.setFuelLeft(landerFuel.getFuel());
 
+            // Tell the crash particle emitter to start emitting particles
+            crashParticleEmitter.center = landerPosition.getCenter();
+            crashParticleEmitter.crash = true;
+            landerAppearance.setShowLander(false);
+
             // Set the level for scoring
             if (!terrainPoints.isLevel1()) {
                 endGame.setLevel(2);
             } else {
                 endGame.setLevel(1);
             }
-
-            // Tell the particle emitter to start emitting particles
-            particleEmitter.center = landerPosition.getCenter();
-            particleEmitter.crash = true;
-            landerAppearance.setShowLander(false);
-
         }
     }
 }
