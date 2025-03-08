@@ -1,6 +1,7 @@
 package ecs.systems;
 
 import core.MyRandom;
+import ecs.components.LanderAppearance;
 import ecs.components.ParticleEmitter;
 import ecs.components.ParticleInfo;
 import ecs.entities.Entity;
@@ -107,7 +108,7 @@ public class ParticleSystem extends System{
 
                     // Angle opposite of the rocket that the particles need to go in
                     float baseAngle = emitter.angle + (float) Math.PI / 2;
-                    float coneWidth = (float) Math.PI / 9;
+                    float coneWidth = (float) Math.PI / 20;
 
                     // Generates some new particles
                     for (int i = 0; i < 5; i++) {
@@ -180,5 +181,19 @@ public class ParticleSystem extends System{
 
         // Return true if this particle is still alive
         return particleInfo.alive < particleInfo.lifeTime;
+    }
+
+    public static void shipThrust(ParticleEmitter thrustParticleEmitter, Vector2f center, float angle) {
+        // Start the particle emitter
+        thrustParticleEmitter.center = center;
+        thrustParticleEmitter.thrust = true;
+        thrustParticleEmitter.angle = angle;
+        thrustParticleEmitter.spawnedThrustParticles = false;
+    }
+
+    public static void shipCrash(ParticleEmitter crashParticleEmitter, Vector2f center) {
+        // Start the particle emitter
+        crashParticleEmitter.center = center;
+        crashParticleEmitter.crash = true;
     }
 }

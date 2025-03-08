@@ -115,10 +115,7 @@ public class Movement extends System {
             thrustUpdated = true;
 
             // Start the particle emitter
-            thrustParticleEmitter.center = position.getCenter();
-            thrustParticleEmitter.thrust = true;
-            thrustParticleEmitter.angle = position.getAngle();
-            thrustParticleEmitter.spawnedThrustParticles = false;
+            ecs.systems.ParticleSystem.shipThrust(thrustParticleEmitter, position.getCenter(), position.getAngle());
 
             // Convert direction angle into a vector
             float angle = position.getAngle() - ((float) Math.PI / 2.0f);
