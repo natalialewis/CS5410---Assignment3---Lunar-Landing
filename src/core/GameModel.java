@@ -29,7 +29,7 @@ public class GameModel {
         var texBackground = new Texture("resources/images/background.jpg");
         var texRocket = new Texture("resources/images/rocket.png");
         var fontHud = new Font("resources/fonts/Roboto-Regular.ttf", 20, false);
-        var fontCount = new Font("resources/fonts/Roboto-Regular.ttf", 100, false);
+        var fontCount = new Font("resources/fonts/Roboto-Regular.ttf", 72, false);
         var texCrashOrb = new Texture("resources/images/crash-orb.png");
         var texThrustOrb = new Texture("resources/images/thrust-orb.png");
 
